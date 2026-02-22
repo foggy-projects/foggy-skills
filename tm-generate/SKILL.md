@@ -1,294 +1,196 @@
 ---
-name: tm-generate
-description: 根据 DDL 语句、表描述或表名生成 TM（表模型）文件。适用于 JDBC 数据源（MySQL、PostgreSQL 等关系型数据库）。MongoDB 模型请使用 tm-generate-mongo 技能。
+name: qm-generate
+description: 根据 TM 模型生成 QM（查询模型）文件。当用户要求生成 QM 文件、创建查询模型、或使用 /qm 时使用。
 ---
 
-# TM 生成器（JDBC 数据源）
+# QM Generator
 
-根据用户输入为 Foggy Dataset Model 系统生成 JDBC 类型的 TM（表模型）文件。
+根据 TM 模型生成 QM（查询模型）文件，定义可查询的字段和 UI 配置。
+
+## QM语法规范
+如果需要获取更多的qm语法规范，请参考[Foggy QM 语法规范](https://foggy-projects.github.io/foggy-data-mcp-bridge/downloads/qm-syntax.md)
+
+## TM 与 QM 的架构关系
+
+```
+TM (表模型)  → 描述数据库表结构，引擎内部自动加载，不可直接查询
+QM (查询模型) → 定义用户可查询的视图，是唯一的查询入口
+```
+
+**关键设计原则**：
+- **TM 不可直接查询**：TM 暴露了表的全部字段（包括 password_hash 等敏感字段），没有访问控制
+- **QM 是受控查询视图**：可以选择性暴露字段、添加计算列、未来可加权限过滤
+- **TM 不需要注册到 `model-list`**：引擎根据 QM 中的 `loadTableModel()` 调用自动加载所需的 TM
+- **只有 QM 需要注册到 `application.yml` 的 `model-list`**
 
 ## 使用场景
 
-当用户需要为 **JDBC 数据源**（MySQL、PostgreSQL、Oracle 等关系型数据库）生成 TM 模型时使用：
-- 根据 DDL 语句创建 TM 文件
-- 将关系型数据库表结构转换为数据模型
-- 生成事实表或维度表模型
-
-**注意**：MongoDB 集合请使用 `tm-generate-mongo` 技能。
-
-## 输入类型
-
-用户可能提供以下类型的输入：
-
-1. **DDL 语句**：`CREATE TABLE` SQL 语句
-2. **表描述**：表及其列的自然语言描述
-3. **现有表名**：引用现有数据库表（需要从本地服务获取结构）
+当用户需要以下操作时使用：
+- 根据 TM 模型创建 QM 查询模型文件
+- 为事实表生成查询视图
+- 创建多模型关联的查询模型
+- 添加计算字段到查询模型
 
 ## 执行流程
 
-### 1. 获取表结构
+1. 读取 TM 模型文件（使用 Glob 查找 .tm 文件，或使用用户指定的模型路径）
+2. 分析 TM 模型结构，提取：
+   - 模型名称
+   - 事实表属性字段
+   - 维度字段
+   - 度量字段
+3. 生成 QM 文件内容：
+   - 使用 `loadTableModel` 加载模型
+   - 定义 `queryModel` 对象
+   - 创建 `columnGroups`，按逻辑分组字段
+   - 添加默认排序（通常按时间字段降序）
+4. 将 QM 文件写入 `{TM模型名}QueryModel.qm`
+5. **注册 QM 到 `application.yml`**（见下方"模型注册"章节）
+6. 输出文件路径和生成的字段列表
 
-#### 方法 1：使用 mysql-docker-client 技能（推荐）
+## 输入要求
 
-当用户提供表名时，使用 `mysql-docker-client` 技能获取表结构：
+用户需提供：
+- TM 模型名称或文件路径（必需）
+- QM 文件存放路径（可选，默认见下方路径规范）
+- 列分组配置（可选，默认按属性、维度、度量分组）
 
-**步骤**：
-1. 使用 `AskUserQuestion` 询问数据库连接信息（host、port、user、password、database）
-2. 使用 `Bash` 工具调用脚本获取列信息、外键信息、示例数据
+## 文件存放路径
 
-**SQL 查询**：
-```sql
--- 获取列信息
-SELECT COLUMN_NAME, DATA_TYPE, COLUMN_TYPE, IS_NULLABLE, COLUMN_KEY, COLUMN_DEFAULT, EXTRA, COLUMN_COMMENT
-FROM information_schema.COLUMNS
-WHERE TABLE_SCHEMA = '{database}' AND TABLE_NAME = '{table_name}'
-ORDER BY ORDINAL_POSITION;
-
--- 获取外键信息
-SELECT CONSTRAINT_NAME, COLUMN_NAME, REFERENCED_TABLE_NAME, REFERENCED_COLUMN_NAME
-FROM information_schema.KEY_COLUMN_USAGE
-WHERE TABLE_SCHEMA = '{database}' AND TABLE_NAME = '{table_name}' AND REFERENCED_TABLE_NAME IS NOT NULL;
-
--- 获取示例数据（可选）
-SELECT * FROM {table_name} LIMIT 1;
+**默认路径**（用户未指定时）：
+```
+src/main/resources/foggy/templates/query/{TM模型名}QueryModel.qm
 ```
 
-**调用示例**：
-```bash
-python C:\Users\oldse\.claude\skills\mysql-docker-client\scripts\execute_sql.py \
-  --host {host} \
-  --port {port} \
-  --user {user} \
-  --password {password} \
-  --database {database} \
-  --sql "SELECT ..."
+**目录结构说明**：
+```
+src/main/resources/foggy/templates/
+├── model/                    # TM 表模型目录
+│   ├── Fact{Name}Model.tm
+│   ├── Dim{Name}Model.tm
+│   └── mongo/
+├── query/                   # QM 查询模型目录
+│   ├── {Name}QueryModel.qm  # 查询模型
+│   └── mongo/               # MongoDB 查询模型（可选分类）
+├── dimensions/              # 维度构建器（可选）
+└── dicts.fsscript          # 字典定义
 ```
 
-#### 方法 2：使用本地 HTTP API（备选）
+如果用户指定了其他路径，按用户指定的路径生成。
 
-如果用户已在本机启动 MCP 服务（端口 7108），可使用 `WebFetch` 访问：
+## 模型注册
 
-```
-URL: http://localhost:7108/dev/tables/{tableName}
-Prompt: 提取表结构信息，包括列名、类型、主键、外键和 TM 模板
-```
+QM 文件生成后，**必须注册到 `application.yml` 的 `model-list`** 才能被查询引擎加载。
 
-### 2. 应用 TM 语法规则
+### 注册规则
 
-使用 `tm-syntax-reference` 技能中的规则：
+1. **只注册 QM 模型名称**，不需要路径前缀
+2. **不要注册 TM 模型**，TM 由引擎根据 `loadTableModel()` 自动加载
 
-- **类型映射**：`VARCHAR` → `STRING`、`DECIMAL` → `MONEY`、`DATE` → `DAY`
-- **Name 字段简化**：蛇形命名自动转驼峰（`order_count` → `orderCount`），省略 name
-- **Measures 设计**：不为同一字段创建多个聚合版本
+### 正确示例
 
-**详细规则见**：`tm-syntax-reference` 技能
-
-### 3. 识别表类型
-
-**事实表特征**：
-- 包含多个维度表的外键
-- 有适合聚合的数值列（金额、数量）
-- 表名通常包含：`fact_`、`fct_`、`sales`、`orders`、`transactions`
-
-**维度表特征**：
-- 包含描述性属性
-- 有代理键（自增）和业务键
-- 表名通常包含：`dim_`、`dimension_`，或为名词（customers、products）
-
-### 4. 分类字段
-
-- **外键** → `dimensions`（使用维度构建器）
-- **数值类型且名称包含 amount/qty/count** → `measures`
-- **其他字段** → `properties`
-
-### 5. 生成 TM 文件
-
-**文件路径**（用户未指定时）：
-```
-src/main/resources/foggy/templates/model/{模型名称}Model.tm
+```yaml
+mcp:
+  semantic:
+    model-list:
+      - FactScoreQueryModel
+      - FactAttendanceQueryModel
+      - AggStudentProfileQueryModel
 ```
 
-**文件结构**：
-```javascript
-/**
- * {模型描述}
- * @description {详细描述}
- */
-import { buildDateDim, buildCustomerDim, buildProductDim } from '../dimensions/common-dims.fsscript';
+### 错误示例
 
-export const model = {
-    name: 'FactSalesModel',      // 遵循命名规范
-    caption: '销售事实表',
-    description: '{AI使用的描述}',
-    tableName: 'fact_sales',
-    idColumn: 'sales_key',
-    // type: 'jdbc' 可省略（默认）
+```yaml
+# 错误 1: 不要注册 TM 模型
+mcp:
+  semantic:
+    model-list:
+      - DimStudentModel          # 错! TM 不需要注册
+      - FactScoreModel           # 错! TM 不需要注册
+      - FactScoreQueryModel      # 正确
 
-    dimensions: [
-        buildDateDim({ name: 'salesDate', caption: '销售日期' }),
-        buildCustomerDim(),
-        buildProductDim()
-    ],
-
-    properties: [
-        // 不可聚合字段
-    ],
-
-    measures: [
-        // 可聚合数值字段
-    ]
-};
+# 错误 2: 不要带路径前缀
+mcp:
+  semantic:
+    model-list:
+      - student/query/FactScoreQueryModel   # 错! 不需要路径
+      - FactScoreQueryModel                 # 正确
 ```
 
-### 6. 验证输出
+## 输出格式
 
-对照检查清单：
-- [ ] 模型名称遵循命名规范（Fact*/Dim* 前缀）
-- [ ] 所有字段都有 caption
-- [ ] 类型映射正确（金额用 MONEY，日期用 DAY/DATETIME）
-- [ ] Name 字段按规则省略（避免冗余）
-- [ ] Measures 不为同一字段创建多个聚合版本
-- [ ] 已识别并配置维度
-- [ ] 使用维度构建器（如有可复用维度）
-- [ ] 枚举字段建议添加 dictRef
-- [ ] 重要字段提供 description（供 AI 使用）
+```
+QM 文件已生成：{文件路径}
 
-## JDBC 专属规则
-
-### 1. 支持 Dimensions（维度关联）
-
-```javascript
-dimensions: [
-    {
-        name: 'customer',
-        tableName: 'dim_customer',
-        foreignKey: 'customer_key',      // 本表外键
-        primaryKey: 'customer_key',      // 维度表主键
-        captionColumn: 'customer_name',
-        caption: '客户',
-        properties: [
-            { column: 'customer_id', caption: '客户ID' },
-            { column: 'province', caption: '省份' }
-        ]
-    }
-]
+包含字段：
+- 事实表属性：{字段列表}
+- 维度：{字段列表}
+- 度量：{字段列表}
 ```
 
-### 2. Name 字段自动转驼峰
+## 约束条件
 
-JDBC 数据库使用蛇形命名，系统自动转为驼峰：
-
-```javascript
-properties: [
-    {
-        column: 'order_count',   // ✅ 省略 name，自动转为 orderCount
-        caption: '订单数',
-        type: 'INTEGER'
-    }
-]
-```
-
-### 3. 推荐使用维度构建器
-
-```javascript
-import { buildDateDim, buildCustomerDim, buildProductDim } from '../dimensions/common-dims.fsscript';
-
-dimensions: [
-    buildDateDim({ name: 'salesDate', caption: '销售日期' }),
-    buildCustomerDim(),
-    buildProductDim()
-]
-```
-
-## 维度检测规则
-
-通过以下方式检测潜在维度：
-
-1. 以 `_key` 或 `_id` 结尾且引用其他表的列
-2. DDL 中的外键约束
-3. 常见维度模式：
-   - `date_key`、`time_key` → 日期维度
-   - `customer_key`、`customer_id` → 客户维度
-   - `product_key`、`product_id` → 产品维度
-   - `store_key`、`store_id` → 门店维度
-
-## 高级特性
-
-当遇到以下场景时，参考 `tm-syntax-reference` 技能的扩展文档：
-
-| 场景 | 扩展文档 |
-|------|---------|
-| 雪花模型（商品→品类→品类组） | `references/nested-dimensions.md` |
-| 组织架构/树形结构 | `references/parent-child-dimensions.md` |
-| JSON 提取/复杂计算 | `references/calculated-fields.md` |
-| 创建维度构建器 | `references/dimension-reuse.md` |
-
-## 输出示例
-
-对于 DDL：
-```sql
-CREATE TABLE fact_sales (
-    sales_key BIGINT PRIMARY KEY,
-    date_key INT NOT NULL,
-    customer_key INT NOT NULL,
-    product_key INT NOT NULL,
-    quantity INT,
-    sales_amount DECIMAL(12,2)
-);
-```
-
-生成：
-```javascript
-import { buildDateDim, buildCustomerDim, buildProductDim } from '../dimensions/common-dims.fsscript';
-
-export const model = {
-    name: 'FactSalesModel',
-    caption: '销售事实表',
-    tableName: 'fact_sales',
-    idColumn: 'sales_key',
-
-    dimensions: [
-        buildDateDim({ name: 'salesDate', foreignKey: 'date_key' }),
-        buildCustomerDim({ foreignKey: 'customer_key' }),
-        buildProductDim({ foreignKey: 'product_key' })
-    ],
-
-    properties: [
-        {
-            column: 'sales_key',
-            caption: '销售键',
-            type: 'BIGINT'
-        }
-    ],
-
-    measures: [
-        {
-            column: 'quantity',
-            caption: '数量',
-            type: 'INTEGER',
-            aggregation: 'sum'
-        },
-        {
-            column: 'sales_amount',
-            caption: '销售金额',
-            type: 'MONEY',
-            aggregation: 'sum'
-        }
-    ]
-};
-```
+- QM 文件名格式：`{TM模型名}QueryModel.qm`
+- 必须使用 `loadTableModel` 加载模型
+- 字段引用必须使用 `ref` 语法（V2 语法）
+- 维度字段自动展开为 `$id` 和 `$caption` 两列
+- 嵌套维度使用路径语法（如 `fo.product.category$caption`）
+- 输出列名使用下划线分隔路径（如 `product_category$caption`）
 
 ## 决策规则
 
-- 如用户提供 DDL → 直接解析生成
-- 如用户提供表名 → 优先使用 mysql-docker-client 获取结构
-- 如检测到外键 → 生成 dimensions（使用构建器）
-- 如表名含 fact_/fct_ → 事实表（FactXxxModel）
-- 如表名含 dim_或为名词 → 维度表（DimXxxModel）
-- 如需嵌套维度/父子维度 → 使用 `Read` 工具读取 `tm-syntax-reference` 扩展文档
+- 如果 TM 模型包含时间字段 → 默认排序使用该字段降序
+- 如果 TM 模型包含多个事实表 → 询问用户是否需要多模型关联
+- 如果用户指定列分组 → 按用户指定的分组生成 columnGroups
+- 如果 TM 模型无维度字段 → 仅生成属性和度量分组
+- 如果 TM 模型无度量字段 → 仅生成属性和维度分组
+- 如果字段名包含中文 → 保留中文字段名，添加 caption 显示名称
+- 如果用户需要排名/趋势/利润率等分析字段 → 读取 `references/predefined-calculated-fields.md` 生成预定义计算字段
 
-## 参考文档
+## 默认列分组策略
 
-详细语法规则、类型映射、高级特性请参考：
-- **核心语法**：`tm-syntax-reference` 技能
-- **完整手册**：[TM 语法手册](https://foggy-projects.github.io/foggy-data-mcp-bridge/zh/dataset-model/tm-qm/tm-syntax.html)
+1. **基础信息组**：包含所有事实表属性（非维度、非度量字段）
+2. **维度组**：包含所有维度字段，使用 `ref` 引用自动展开
+3. **度量组**：包含所有度量字段
+
+## 示例输出
+
+```javascript
+const fo = loadTableModel('FactOrderModel');
+
+export const queryModel = {
+    name: 'FactOrderQueryModel',
+    caption: '订单查询',
+    model: fo,
+
+    columnGroups: [
+        {
+            caption: '基础信息',
+            items: [
+                { ref: fo.orderId },
+                { ref: fo.orderStatus },
+                { ref: fo.orderTime }
+            ]
+        },
+        {
+            caption: '维度',
+            items: [
+                { ref: fo.customer },
+                { ref: fo.product },
+                { ref: fo.region }
+            ]
+        },
+        {
+            caption: '度量',
+            items: [
+                { ref: fo.totalQuantity },
+                { ref: fo.totalAmount }
+            ]
+        }
+    ],
+
+    orders: [
+        { name: 'orderTime', order: 'desc' }
+    ]
+};
+```
