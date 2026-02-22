@@ -39,19 +39,39 @@ allowed-tools: Read, Grep, Glob, WebFetch, Bash
    │◀──────────────│◀──────────────────────────│◀── 测试代码控制
 ```
 
-### 测试环境启动
+### 一键启动/停止
+
+项目根目录提供了一键脚本，自动启动 Mock Server + FleetSync（mock 模式）：
 
 ```bash
-# 1. 启动 Mock Server
-cd mock-server
-start.bat          # Windows（自动处理端口冲突）
+# 一键启动（自动检测端口占用、启动 Mock Server、构建 JAR、启动 FleetSync）
+start.bat          # Windows
 # ./start.sh       # Linux/Mac
 
-# 2. 启动 FleetSync（使用 mock profile）
-java -jar target/fleetsync-*.jar --spring.profiles.active=dev,mock
+# 一键停止（停止 FleetSync + Mock Server）
+stop.bat           # Windows
+# ./stop.sh        # Linux/Mac
+```
 
-# 3. Mock Server 管理界面
-# http://localhost:3302/admin
+也可以单独启动 Mock Server：
+```bash
+cd mock-server
+start.bat          # Windows
+# ./start.sh       # Linux/Mac
+```
+
+启动后可访问：
+- FleetSync API: `http://localhost:12020/fleetsync`
+- FleetSync Swagger: `http://localhost:12020/fleetsync/swagger-ui.html`
+- Mock Server 管理界面: `http://localhost:3302/admin`
+
+### 启动脚本执行流程
+
+```
+[1/4] 检查 FleetSync 端口 (12020)，有占用则杀掉
+[2/4] 检查 Mock Server (3302)，未运行则自动启动
+[3/4] 检查 JAR 是否存在，不存在则 mvn package
+[4/4] 启动 FleetSync (profiles: dev,mock)
 ```
 
 ### 管理 API 索引（用于测试控制）

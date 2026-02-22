@@ -33,7 +33,7 @@ allowed-tools: Read, Grep, Glob, WebFetch, Bash
 - `/api/public/**` 和 `/api/webhooks/**` 无需认证
 
 ### 业务流程（6步）
-1. **报价** `POST /api/v1/quotes` → 获得 quoteNo（有效期 30 分钟）
+1. **报价** `POST /api/v1/quotes` → 获得 quoteNo（有效期 10 分钟）
 2. **下单** `POST /api/v1/tasks` → 获得 taskNo + unlockCode（6位字母数字取货码）
 3. **等待派车** 通过 Webhook 接收 DISPATCHED → ARRIVED_PICKUP
 4. **取货** `POST /api/v1/tasks/{taskNo}/unlock` + `confirm-loading`
@@ -92,7 +92,7 @@ code=0 为成功，其他为错误码。
 | 5001 | 系统内部错误 | 联系平台方 |
 
 ### 关键业务规则
-- **报价有效期**：30 分钟，仅 AVAILABLE 状态可下单
+- **报价有效期**：10 分钟，仅 AVAILABLE 状态可下单
 - **取货码**：6位字母+数字，最多尝试 5 次，超过锁定
 - **坐标系**：WGS84（GPS 原始坐标），提醒上游注意坐标转换（高德/百度使用 GCJ-02/BD-09）
 - **分页**：page 从 0 开始，默认 size=20

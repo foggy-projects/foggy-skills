@@ -147,7 +147,7 @@ PENDING → DISPATCHED → ARRIVED_PICKUP → LOADED → IN_TRANSIT → ARRIVED_
 | EXPIRED | 报价已过期 | 否（需重新报价） |
 | USED | 报价已使用 | 否 |
 
-> 报价有效期默认 30 分钟，过期后需重新创建。仅 AVAILABLE 状态可下单。
+> 报价有效期默认 10 分钟，过期后需重新创建。仅 AVAILABLE 状态可下单。
 
 ---
 

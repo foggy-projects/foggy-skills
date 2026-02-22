@@ -11,33 +11,80 @@
 
 - Node.js 16+
 - Java 17+（运行 FleetSync）
-- MySQL 8 + MongoDB（或通过 Docker Compose 启动）
+- Maven 3.6+（构建 FleetSync JAR）
+- MySQL 8 + MongoDB（需提前启动）
 
-### 启动步骤
+### 一键启动（推荐）
+
+项目根目录提供了一键脚本，**自动完成全部启动流程**：
 
 ```bash
-# 1. 启动 Mock Server（端口 3302）
-cd mock-server
-npm install        # 首次
-start.bat          # Windows（自动检查端口占用并杀掉旧进程）
-# ./start.sh       # Linux/Mac
+# Windows
+start.bat
 
-# 2. 启动 FleetSync（端口 12020，使用 mock profile 连接 Mock Server）
-java -jar target/fleetsync-*.jar --spring.profiles.active=dev,mock
-
-# 3. 触发数据同步（FleetSync 从 Mock Server 拉取车辆/站点/路线数据）
-curl -X POST http://localhost:12020/fleetsync/api/v1/sync/full
-
-# 4. 管理界面
-# http://localhost:3302/admin
+# Linux/Mac
+chmod +x start.sh && ./start.sh
 ```
 
-### 停止
+**脚本自动执行以下 4 步：**
+
+| 步骤 | 操作 | 说明 |
+|------|------|------|
+| 1/4 | 检查 FleetSync 端口 (12020) | 如有占用则杀掉旧进程 |
+| 2/4 | 检查 Mock Server (3302) | 未运行则自动启动 |
+| 3/4 | 检查 JAR 是否存在 | 不存在则自动 `mvn package -DskipTests` |
+| 4/4 | 启动 FleetSync | profiles: `dev,mock`，连接 Mock Server |
+
+启动后可访问：
+- **FleetSync API**: http://localhost:12020/fleetsync
+- **Swagger UI**: http://localhost:12020/fleetsync/swagger-ui.html
+- **Mock 管理界面**: http://localhost:3302/admin
+
+### 一键停止
+
+```bash
+# Windows — 同时停止 FleetSync + Mock Server
+stop.bat
+
+# Linux/Mac
+./stop.sh
+```
+
+### 单独启动 Mock Server
+
+如果只需要 Mock Server（不启动 FleetSync）：
 
 ```bash
 cd mock-server
+npm install        # 首次
+start.bat          # Windows
+# ./start.sh       # Linux/Mac
+
+# 停止
 stop.bat           # Windows
 # ./stop.sh        # Linux/Mac
+```
+
+### Mock 模式配置说明
+
+FleetSync 使用 `--spring.profiles.active=dev,mock` 启动时：
+- `dev` profile: 连接本地 MySQL (3306) + MongoDB (27017)
+- `mock` profile: 覆盖供应商 API 地址，指向 Mock Server (3302)
+
+```yaml
+# application-mock.yml（自动覆盖供应商配置）
+fleetsync:
+  suppliers:
+    neolix:
+      token-base-url: http://localhost:3302
+      cloud-api-base-url: http://localhost:3302
+      accounts:
+        - merchant-code: NEOLIX_QD01
+          client-id: 18053159977
+          client-secret: f2d8153e-4d4e-4ea4-ac37-bb6a4946ca64
+        - merchant-code: NEOLIX_QD02
+          client-id: 18053159978
+          client-secret: a1b2c3d4-e5f6-7890-abcd-ef1234567890
 ```
 
 ---
@@ -159,6 +206,11 @@ stop.bat           # Windows
 
 ```
 webhookUrl=http://localhost:12020/fleetsync/api/webhooks/neolix/callback
+```
+
+也可通过 JSON body 发送：
+```json
+{ "webhookUrl": "http://localhost:12020/fleetsync/api/webhooks/neolix/callback" }
 ```
 
 **说明：** 设置 Mock Server 发送状态变更回调的目标地址。默认已指向本地 FleetSync。
