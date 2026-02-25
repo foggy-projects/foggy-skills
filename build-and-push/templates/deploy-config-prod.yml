@@ -1,0 +1,143 @@
+# 生产环境配置模板
+# 复制此文件到项目根目录并重命名为 deploy-config.yml
+# 然后根据实际情况修改配置项
+#
+# ⚠️ 警告：生产环境配置包含敏感信息，请妥善保管
+# ⚠️ 不要将此文件提交到版本控制系统
+
+# ===================================
+# Harbor镜像仓库配置
+# ===================================
+harbor:
+  registry: "your-harbor-registry.com:8080"
+  username: "your-username"
+  password: "your-password"
+
+# ===================================
+# 环境配置
+# ===================================
+environments:
+  prod:
+    harbor_project: "shundao-delivery-prod"
+    spring_profile: "prod"
+    # 生产环境使用语义化版本号（不使用时间戳）
+    use_timestamp: false
+    environment_vars:
+      NACOS_SERVER_ADDR: "nacos-prod.example.com:8848"
+      JAVA_OPTS: "-Xms2048m -Xmx4096m -Dfile.encoding=UTF-8 -Duser.timezone=Asia/Shanghai"
+    servers:
+      - name: "prod-server-1"
+        host: "192.168.1.10"
+        user: "root"
+        port: 22
+        # 生产环境推荐使用SSH密钥认证
+        auth_type: "ssh_key"
+        ssh_key: "~/.ssh/id_rsa_prod"
+        compose_path: "/opt/shundao-delivery"
+      - name: "prod-server-2"
+        host: "192.168.1.11"
+        user: "root"
+        port: 22
+        auth_type: "ssh_key"
+        ssh_key: "~/.ssh/id_rsa_prod"
+        compose_path: "/opt/shundao-delivery"
+
+# ===================================
+# 允许打包的子模块配置
+# ===================================
+modules:
+  # 生产环境确保所有必要服务已启用
+  shundao-user:
+    enabled: true
+    display_name: "用户服务"
+    port: 18026
+    health_check: "/actuator/health"
+
+  shundao-thirdparty:
+    enabled: true
+    display_name: "第三方服务"
+    port: 18025
+    health_check: "/actuator/health"
+
+  shundao-cashier:
+    enabled: true
+    display_name: "收银台服务"
+    port: 18021
+    health_check: "/actuator/health"
+
+  shundao-shipment:
+    enabled: true
+    display_name: "运单服务"
+    port: 18022
+    health_check: "/actuator/health"
+
+  shundao-storeman:
+    enabled: true
+    display_name: "仓管服务"
+    port: 18023
+    health_check: "/actuator/health"
+
+  shundao-terminal:
+    enabled: true
+    display_name: "终端服务"
+    port: 18030
+    health_check: "/actuator/health"
+
+  shundao-task:
+    enabled: true
+    display_name: "任务服务"
+    port: 18027
+    health_check: "/actuator/health"
+
+  shundao-shortlink:
+    enabled: true
+    display_name: "短链服务"
+    port: 18031
+    health_check: "/actuator/health"
+
+  shundao-admin:
+    enabled: true
+    display_name: "管理后台"
+    port: 18020
+    health_check: "/actuator/health"
+
+  shundao-gateway:
+    enabled: true
+    display_name: "网关服务"
+    port: 18028
+    health_check: "/actuator/health"
+
+# ===================================
+# 构建配置
+# ===================================
+build:
+  # 生产环境建议跳过测试以加快构建速度
+  maven:
+    skip_tests: true
+    opts: "-DskipTests -Dmaven.javadoc.skip=true"
+  docker:
+    dockerfile: "Dockerfile"
+    build_args: {}
+
+# ===================================
+# 部署配置
+# ===================================
+deploy:
+  network_mode: "host"
+  health_check:
+    enabled: true
+    timeout: 120  # 生产环境超时时间更长
+    interval: 10
+  # 生产环境建议启用Nacos优雅下线
+  nacos:
+    enabled: true
+    deregister_before_deploy: true
+    wait_time: 30  # 生产环境等待时间更长
+
+# ===================================
+# 日志配置
+# ===================================
+logging:
+  dir: "/var/log/shundao-delivery"
+  level: "INFO"
+  save_to_file: true
