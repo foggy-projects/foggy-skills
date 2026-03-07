@@ -1,3 +1,6 @@
 /playwright-cli/
 /find-skills/
 /ask-agent/
+
+# Sensitive env files (SSH credentials etc.)
+**/.env
