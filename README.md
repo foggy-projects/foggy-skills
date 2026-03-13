@@ -35,35 +35,38 @@ Foggy Navigator 开源 Skill 插件市场 — 为 Claude Code 提供可复用的
 
 ## 安装
 
-### 方式一：Claude Code CLI（推荐）
+### 方式一：配置 settings.json（推荐）
 
-```bash
-claude mcp add-skill-marketplace https://github.com/foggy-projects/foggy-skills.git
-```
-
-### 方式二：手动配置
-
-将以下内容添加到 `~/.claude/settings.json`：
+在 `~/.claude/settings.json` 中添加 marketplace 配置：
 
 ```json
 {
-  "extraKnownMarketplaces": [
-    "https://github.com/foggy-projects/foggy-skills.git"
-  ]
+  "foggy-skills": {
+    "source": {
+      "source": "git",
+      "url": "https://github.com/foggy-projects/foggy-skills.git"
+    }
+  }
 }
 ```
 
-然后重启 Claude Code，技能会自动加载。
+> **注意**：如果文件中已有其他配置（如 `company-skill-marketplace`），直接追加 `foggy-skills` 键即可，多个 marketplace 可共存。
 
-### 方式三：手动克隆
+重启 Claude Code 后技能会自动加载。
+
+### 方式二：手动克隆
 
 ```bash
-# 克隆到 Claude Code skills 目录
+# Linux / macOS
 git clone https://github.com/foggy-projects/foggy-skills.git \
   ~/.claude/skills/foggy-skills
 
+# Windows (PowerShell)
+git clone https://github.com/foggy-projects/foggy-skills.git `
+  "$env:USERPROFILE\.claude\skills\foggy-skills"
+
 # 验证
-ls ~/.claude/skills/foggy-skills/.claude-plugin/marketplace.json
+cat ~/.claude/skills/foggy-skills/.claude-plugin/marketplace.json
 ```
 
 ## 目录结构
