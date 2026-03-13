@@ -1,0 +1,15 @@
+{
+  "name": "preagg-cache-optimize",
+  "version": "1.0.0",
+  "description": "预聚合与缓存优化技能。当用户需要调试预聚合匹配问题、优化查询性能、配置缓存策略、或排查缓存命中问题时使用。",
+  "author": {
+    "name": "oldseasoul",
+    "email": "oldseasoul@163.com"
+  },
+  "license": "MIT",
+  "keywords": [
+    "performance",
+    "cache",
+    "pre-aggregation"
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "name": "frontend-dsl-query",
+  "version": "1.0.0",
+  "description": "引导前端开发使用 DSL 直接查询数据。生成公共查询 API 和业务封装 API。当用户需要在前端查询数据、生成查询接口时使用。",
+  "author": {
+    "name": "oldseasoul",
+    "email": "oldseasoul@163.com"
+  },
+  "license": "MIT",
+  "keywords": [
+    "frontend",
+    "dsl",
+    "query",
+    "api"
+  ]
+}

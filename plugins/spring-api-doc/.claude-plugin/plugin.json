@@ -1,0 +1,16 @@
+{
+  "name": "spring-api-doc",
+  "version": "1.0.0",
+  "description": "为 Spring Controller API 编写符合顺道公司规范的文档（两层结构：核心API文档 + 完整使用手册）。当用户需要为 Spring Controller 接口生成API文档、编写接口文档、或使用 /spring-api-d",
+  "author": {
+    "name": "oldseasoul",
+    "email": "oldseasoul@163.com"
+  },
+  "license": "MIT",
+  "keywords": [
+    "java",
+    "spring",
+    "api",
+    "documentation"
+  ]
+}

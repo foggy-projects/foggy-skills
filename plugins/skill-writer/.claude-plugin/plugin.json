@@ -1,0 +1,15 @@
+{
+  "name": "skill-writer",
+  "version": "1.0.0",
+  "description": "快速生成简单的 SKILL.md 文件（纯指令型技能）。当用户要求\"快速创建skill\"、\"生成SKILL.md模板\"、将提示词转换为技能时使用。对于需要脚本/资源/打包工具的复杂技能，使用 skill-creator。",
+  "author": {
+    "name": "oldseasoul",
+    "email": "oldseasoul@163.com"
+  },
+  "license": "MIT",
+  "keywords": [
+    "skill",
+    "creation",
+    "template"
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "name": "foggy-java-integration",
+  "version": "1.0.0",
+  "description": "指导 Java 项目引入 foggy-dataset-model 依赖并完成基础配置。当用户需要在 Java/Spring Boot 项目中集成 Foggy Dataset Model、配置 TM/QM 模型时使用。",
+  "author": {
+    "name": "oldseasoul",
+    "email": "oldseasoul@163.com"
+  },
+  "license": "MIT",
+  "keywords": [
+    "java",
+    "spring-boot",
+    "integration"
+  ]
+}

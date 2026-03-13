@@ -1,0 +1,16 @@
+{
+  "name": "mysql-docker-client",
+  "version": "1.0.0",
+  "description": "Execute MySQL operations through Docker container client. Use when you need to: (1) Execute SQL queries or modifications",
+  "author": {
+    "name": "oldseasoul",
+    "email": "oldseasoul@163.com"
+  },
+  "license": "MIT",
+  "keywords": [
+    "mysql",
+    "docker",
+    "database",
+    "sql"
+  ]
+}

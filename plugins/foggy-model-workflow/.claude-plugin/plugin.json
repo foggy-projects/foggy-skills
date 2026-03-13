@@ -1,0 +1,16 @@
+{
+  "name": "foggy-model-workflow",
+  "version": "1.0.0",
+  "description": "Foggy TM/QM 模型开发工作流编排。根据用户需求自动识别数据源类型，按正确顺序调用 tm-generate/tm-generate-mongo → qm-generate → qm-validate，一站式完成模型设计与验证。",
+  "author": {
+    "name": "oldseasoul",
+    "email": "oldseasoul@163.com"
+  },
+  "license": "MIT",
+  "keywords": [
+    "workflow",
+    "tm",
+    "qm",
+    "orchestration"
+  ]
+}

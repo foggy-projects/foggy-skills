@@ -1,0 +1,15 @@
+{
+  "name": "xiaohongshu-note",
+  "version": "1.0.0",
+  "description": "生成小红书风格的项目进度笔记。当用户要求生成进度笔记、小红书笔记、项目汇报笔记、或使用 /xiaohongshu-note 时使用。",
+  "author": {
+    "name": "oldseasoul",
+    "email": "oldseasoul@163.com"
+  },
+  "license": "MIT",
+  "keywords": [
+    "note",
+    "report",
+    "social-media"
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "name": "backend-dsl-query",
+  "version": "1.0.0",
+  "description": "引导后端开发使用 DSL 查询数据。生成 Java Service 层查询代码。当用户需要在后端封装查询逻辑时使用。",
+  "author": {
+    "name": "oldseasoul",
+    "email": "oldseasoul@163.com"
+  },
+  "license": "MIT",
+  "keywords": [
+    "backend",
+    "java",
+    "dsl",
+    "query"
+  ]
+}

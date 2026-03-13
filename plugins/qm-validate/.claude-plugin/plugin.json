@@ -1,0 +1,15 @@
+{
+  "name": "qm-validate",
+  "version": "1.0.0",
+  "description": "验证 TM/QM 模型文件是否正确。需要后端服务运行中。当用户生成模型后需要验证、或使用 /qm-validate 时使用。",
+  "author": {
+    "name": "oldseasoul",
+    "email": "oldseasoul@163.com"
+  },
+  "license": "MIT",
+  "keywords": [
+    "qm",
+    "validation",
+    "model"
+  ]
+}

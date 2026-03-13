@@ -1,0 +1,15 @@
+{
+  "name": "mongo-model-dev",
+  "version": "1.0.0",
+  "description": "开发和迭代 foggy-dataset-model-mongo 模块（MongoDB 数据模型支持）。当用户需要修改 MongoDB 查询引擎、表达式处理、TM/QM 模型加载、编写集成测试、或排查 MongoDB 聚合管道问题时使用。",
+  "author": {
+    "name": "oldseasoul",
+    "email": "oldseasoul@163.com"
+  },
+  "license": "MIT",
+  "keywords": [
+    "mongodb",
+    "development",
+    "aggregation"
+  ]
+}

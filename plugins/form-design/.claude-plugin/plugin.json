@@ -1,0 +1,16 @@
+{
+  "name": "form-design",
+  "version": "1.0.0",
+  "description": "为Spring Boot项目设计二层结构Form/DTO的开发规范。当用户需要设计接口参数、创建Form/DTO类、或使用 /form-design 时使用。",
+  "author": {
+    "name": "oldseasoul",
+    "email": "oldseasoul@163.com"
+  },
+  "license": "MIT",
+  "keywords": [
+    "java",
+    "spring-boot",
+    "form",
+    "dto"
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "name": "frpc-remote-manage",
+  "version": "1.0.0",
+  "description": "Remote frpc (frp client) configuration management via SSH. Pull, edit, push config and restart frpc service on remote se",
+  "author": {
+    "name": "oldseasoul",
+    "email": "oldseasoul@163.com"
+  },
+  "license": "MIT",
+  "keywords": [
+    "frpc",
+    "frp",
+    "reverse-proxy",
+    "ssh"
+  ]
+}

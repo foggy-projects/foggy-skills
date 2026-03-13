@@ -1,0 +1,15 @@
+{
+  "name": "qm-schema-viewer",
+  "version": "1.0.0",
+  "description": "查看 QM（查询模型）的 schema 信息。当用户需要了解某个模型有哪些字段、字段类型、是否可筛选/排序等信息时使用。",
+  "author": {
+    "name": "oldseasoul",
+    "email": "oldseasoul@163.com"
+  },
+  "license": "MIT",
+  "keywords": [
+    "qm",
+    "schema",
+    "metadata"
+  ]
+}

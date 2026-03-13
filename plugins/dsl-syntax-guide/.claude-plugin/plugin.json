@@ -1,0 +1,15 @@
+{
+  "name": "dsl-syntax-guide",
+  "version": "1.0.0",
+  "description": "DSL 查询语法参考手册。当用户需要了解 DSL 查询语法、操作符、字段引用格式时使用。",
+  "author": {
+    "name": "oldseasoul",
+    "email": "oldseasoul@163.com"
+  },
+  "license": "MIT",
+  "keywords": [
+    "dsl",
+    "syntax",
+    "reference"
+  ]
+}

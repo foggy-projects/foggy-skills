@@ -1,0 +1,16 @@
+{
+  "name": "tm-syntax-reference",
+  "version": "1.0.0",
+  "description": "Foggy TM 语法参考手册。当需要了解 TM 类型映射、Name 字段规则、Measures 设计原则、维度定义语法时使用。",
+  "author": {
+    "name": "oldseasoul",
+    "email": "oldseasoul@163.com"
+  },
+  "license": "MIT",
+  "keywords": [
+    "tm",
+    "syntax",
+    "reference",
+    "documentation"
+  ]
+}

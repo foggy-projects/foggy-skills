@@ -1,0 +1,16 @@
+{
+  "name": "build-and-push",
+  "version": "1.0.0",
+  "description": "Build & Push 项目构建部署技能",
+  "author": {
+    "name": "oldseasoul",
+    "email": "oldseasoul@163.com"
+  },
+  "license": "MIT",
+  "keywords": [
+    "build",
+    "deploy",
+    "docker",
+    "ci-cd"
+  ]
+}

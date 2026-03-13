@@ -1,0 +1,15 @@
+{
+  "name": "syntho",
+  "version": "1.0.0",
+  "description": "顺道私有代码库智能检索助手。当用户需要查找代码、浏览项目、搜索实现、查看源码时使用。支持 /syntho 触发。",
+  "author": {
+    "name": "oldseasoul",
+    "email": "oldseasoul@163.com"
+  },
+  "license": "MIT",
+  "keywords": [
+    "code-search",
+    "gitlab",
+    "repository"
+  ]
+}

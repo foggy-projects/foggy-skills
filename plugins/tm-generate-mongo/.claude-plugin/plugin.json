@@ -1,0 +1,16 @@
+{
+  "name": "tm-generate-mongo",
+  "version": "1.0.0",
+  "description": "根据 MongoDB 集合信息生成 TM（表模型）文件。当用户需要为 MongoDB 集合创建数据模型、生成 mongo 类型的 .tm 文件时使用。",
+  "author": {
+    "name": "oldseasoul",
+    "email": "oldseasoul@163.com"
+  },
+  "license": "MIT",
+  "keywords": [
+    "tm",
+    "table-model",
+    "mongodb",
+    "code-generation"
+  ]
+}

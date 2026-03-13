@@ -1,0 +1,15 @@
+{
+  "name": "foggy-frontend-init",
+  "version": "1.0.0",
+  "description": "初始化前端项目的 Foggy 开发环境。安装依赖、创建配置文件、生成公共 API。当用户首次在前端项目中使用 Foggy 组件或查询 API 时使用。",
+  "author": {
+    "name": "oldseasoul",
+    "email": "oldseasoul@163.com"
+  },
+  "license": "MIT",
+  "keywords": [
+    "frontend",
+    "vue",
+    "initialization"
+  ]
+}
