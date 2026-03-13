@@ -1,20 +1,21 @@
 {
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
   "name": "foggy-skills",
+  "description": "Foggy Navigator 开源 Skill 合集 — AI 编程技能插件市场",
   "owner": {
     "name": "oldseasoul",
     "email": "oldseasoul@163.com"
-  },
-  "metadata": {
-    "description": "Foggy Navigator 开源 Skill 合集 — AI 编程技能插件市场",
-    "version": "1.0.0"
   },
   "plugins": [
     {
       "name": "backend-dsl-query",
       "description": "引导后端开发使用 DSL 查询数据。生成 Java Service 层查询代码。当用户需要在后端封装查询逻辑时使用。",
       "version": "1.0.0",
-      "author": "oldseasoul",
-      "source": "plugins/backend-dsl-query",
+      "author": {
+        "name": "oldseasoul",
+        "email": "oldseasoul@163.com"
+      },
+      "source": "./plugins/backend-dsl-query",
       "category": "development",
       "tags": [
         "backend",
@@ -27,8 +28,11 @@
       "name": "build-and-push",
       "description": "Build & Push 项目构建部署技能",
       "version": "1.0.0",
-      "author": "oldseasoul",
-      "source": "plugins/build-and-push",
+      "author": {
+        "name": "oldseasoul",
+        "email": "oldseasoul@163.com"
+      },
+      "source": "./plugins/build-and-push",
       "category": "devops",
       "tags": [
         "build",
@@ -41,8 +45,11 @@
       "name": "dsl-syntax-guide",
       "description": "DSL 查询语法参考手册。当用户需要了解 DSL 查询语法、操作符、字段引用格式时使用。",
       "version": "1.0.0",
-      "author": "oldseasoul",
-      "source": "plugins/dsl-syntax-guide",
+      "author": {
+        "name": "oldseasoul",
+        "email": "oldseasoul@163.com"
+      },
+      "source": "./plugins/dsl-syntax-guide",
       "category": "development",
       "tags": [
         "dsl",
@@ -54,8 +61,11 @@
       "name": "foggy-frontend-init",
       "description": "初始化前端项目的 Foggy 开发环境。安装依赖、创建配置文件、生成公共 API。当用户首次在前端项目中使用 Foggy 组件或查询 API 时使用。",
       "version": "1.0.0",
-      "author": "oldseasoul",
-      "source": "plugins/foggy-frontend-init",
+      "author": {
+        "name": "oldseasoul",
+        "email": "oldseasoul@163.com"
+      },
+      "source": "./plugins/foggy-frontend-init",
       "category": "development",
       "tags": [
         "frontend",
@@ -67,8 +77,11 @@
       "name": "foggy-java-integration",
       "description": "指导 Java 项目引入 foggy-dataset-model 依赖并完成基础配置。当用户需要在 Java/Spring Boot 项目中集成 Foggy Dataset Model、配置 TM/Q",
       "version": "1.0.0",
-      "author": "oldseasoul",
-      "source": "plugins/foggy-java-integration",
+      "author": {
+        "name": "oldseasoul",
+        "email": "oldseasoul@163.com"
+      },
+      "source": "./plugins/foggy-java-integration",
       "category": "development",
       "tags": [
         "java",
@@ -80,8 +93,11 @@
       "name": "foggy-model-workflow",
       "description": "Foggy TM/QM 模型开发工作流编排。根据用户需求自动识别数据源类型，按正确顺序调用 tm-generate/tm-generate-mongo → qm-generate → qm-valid",
       "version": "1.0.0",
-      "author": "oldseasoul",
-      "source": "plugins/foggy-model-workflow",
+      "author": {
+        "name": "oldseasoul",
+        "email": "oldseasoul@163.com"
+      },
+      "source": "./plugins/foggy-model-workflow",
       "category": "development",
       "tags": [
         "workflow",
@@ -94,8 +110,11 @@
       "name": "foggy-project-iteration",
       "description": "Foggy 项目迭代向导。分析项目当前状态，确定下一步工作，编排技能调用顺序。当用户开始新的开发迭代、询问下一步该做什么、或使用 /iterate 时使用。",
       "version": "1.0.0",
-      "author": "oldseasoul",
-      "source": "plugins/foggy-project-iteration",
+      "author": {
+        "name": "oldseasoul",
+        "email": "oldseasoul@163.com"
+      },
+      "source": "./plugins/foggy-project-iteration",
       "category": "development",
       "tags": [
         "workflow",
@@ -107,8 +126,11 @@
       "name": "form-design",
       "description": "为Spring Boot项目设计二层结构Form/DTO的开发规范。当用户需要设计接口参数、创建Form/DTO类、或使用 /form-design 时使用。",
       "version": "1.0.0",
-      "author": "oldseasoul",
-      "source": "plugins/form-design",
+      "author": {
+        "name": "oldseasoul",
+        "email": "oldseasoul@163.com"
+      },
+      "source": "./plugins/form-design",
       "category": "development",
       "tags": [
         "java",
@@ -121,8 +143,11 @@
       "name": "frontend-component-generator",
       "description": "自动生成基于 foggy-data-viewer 的 Vue 业务组件。根据 QM 模型自动拉取 schema、生成组件代码、配置文件和文档。当用户需要快速创建数据表格业务组件时使用。",
       "version": "1.0.0",
-      "author": "oldseasoul",
-      "source": "plugins/frontend-component-generator",
+      "author": {
+        "name": "oldseasoul",
+        "email": "oldseasoul@163.com"
+      },
+      "source": "./plugins/frontend-component-generator",
       "category": "development",
       "tags": [
         "frontend",
@@ -135,8 +160,11 @@
       "name": "frontend-dsl-query",
       "description": "引导前端开发使用 DSL 直接查询数据。生成公共查询 API 和业务封装 API。当用户需要在前端查询数据、生成查询接口时使用。",
       "version": "1.0.0",
-      "author": "oldseasoul",
-      "source": "plugins/frontend-dsl-query",
+      "author": {
+        "name": "oldseasoul",
+        "email": "oldseasoul@163.com"
+      },
+      "source": "./plugins/frontend-dsl-query",
       "category": "development",
       "tags": [
         "frontend",
@@ -149,8 +177,11 @@
       "name": "frpc-remote-manage",
       "description": "Remote frpc (frp client) configuration management via SSH. Pull, edit, push config and restart frpc ",
       "version": "1.0.0",
-      "author": "oldseasoul",
-      "source": "plugins/frpc-remote-manage",
+      "author": {
+        "name": "oldseasoul",
+        "email": "oldseasoul@163.com"
+      },
+      "source": "./plugins/frpc-remote-manage",
       "category": "devops",
       "tags": [
         "frpc",
@@ -163,8 +194,11 @@
       "name": "mongo-model-dev",
       "description": "开发和迭代 foggy-dataset-model-mongo 模块（MongoDB 数据模型支持）。当用户需要修改 MongoDB 查询引擎、表达式处理、TM/QM 模型加载、编写集成测试、或排查 ",
       "version": "1.0.0",
-      "author": "oldseasoul",
-      "source": "plugins/mongo-model-dev",
+      "author": {
+        "name": "oldseasoul",
+        "email": "oldseasoul@163.com"
+      },
+      "source": "./plugins/mongo-model-dev",
       "category": "development",
       "tags": [
         "mongodb",
@@ -176,8 +210,11 @@
       "name": "mysql-docker-client",
       "description": "Execute MySQL operations through Docker container client. Use when you need to: (1) Execute SQL quer",
       "version": "1.0.0",
-      "author": "oldseasoul",
-      "source": "plugins/mysql-docker-client",
+      "author": {
+        "name": "oldseasoul",
+        "email": "oldseasoul@163.com"
+      },
+      "source": "./plugins/mysql-docker-client",
       "category": "devops",
       "tags": [
         "mysql",
@@ -190,8 +227,11 @@
       "name": "plan-evaluator",
       "description": "评估技术优化计划的可维护性，分析替代方案，识别潜在风险。当用户要求评估技术方案、审查优化计划、或使用 /evaluate-plan 时使用。",
       "version": "1.0.0",
-      "author": "oldseasoul",
-      "source": "plugins/plan-evaluator",
+      "author": {
+        "name": "oldseasoul",
+        "email": "oldseasoul@163.com"
+      },
+      "source": "./plugins/plan-evaluator",
       "category": "utility",
       "tags": [
         "evaluation",
@@ -203,8 +243,11 @@
       "name": "preagg-cache-optimize",
       "description": "预聚合与缓存优化技能。当用户需要调试预聚合匹配问题、优化查询性能、配置缓存策略、或排查缓存命中问题时使用。",
       "version": "1.0.0",
-      "author": "oldseasoul",
-      "source": "plugins/preagg-cache-optimize",
+      "author": {
+        "name": "oldseasoul",
+        "email": "oldseasoul@163.com"
+      },
+      "source": "./plugins/preagg-cache-optimize",
       "category": "development",
       "tags": [
         "performance",
@@ -216,8 +259,11 @@
       "name": "qm-generate",
       "description": "根据 TM 模型生成 QM（查询模型）文件。当用户要求生成 QM 文件、创建查询模型、或使用 /qm 时使用。",
       "version": "1.0.0",
-      "author": "oldseasoul",
-      "source": "plugins/qm-generate",
+      "author": {
+        "name": "oldseasoul",
+        "email": "oldseasoul@163.com"
+      },
+      "source": "./plugins/qm-generate",
       "category": "development",
       "tags": [
         "qm",
@@ -229,8 +275,11 @@
       "name": "qm-schema-viewer",
       "description": "查看 QM（查询模型）的 schema 信息。当用户需要了解某个模型有哪些字段、字段类型、是否可筛选/排序等信息时使用。",
       "version": "1.0.0",
-      "author": "oldseasoul",
-      "source": "plugins/qm-schema-viewer",
+      "author": {
+        "name": "oldseasoul",
+        "email": "oldseasoul@163.com"
+      },
+      "source": "./plugins/qm-schema-viewer",
       "category": "development",
       "tags": [
         "qm",
@@ -242,8 +291,11 @@
       "name": "qm-validate",
       "description": "验证 TM/QM 模型文件是否正确。需要后端服务运行中。当用户生成模型后需要验证、或使用 /qm-validate 时使用。",
       "version": "1.0.0",
-      "author": "oldseasoul",
-      "source": "plugins/qm-validate",
+      "author": {
+        "name": "oldseasoul",
+        "email": "oldseasoul@163.com"
+      },
+      "source": "./plugins/qm-validate",
       "category": "development",
       "tags": [
         "qm",
@@ -255,8 +307,11 @@
       "name": "skill-creator",
       "description": "Guide for creating effective skills. This skill should be used when users want to create a new skill",
       "version": "1.0.0",
-      "author": "oldseasoul",
-      "source": "plugins/skill-creator",
+      "author": {
+        "name": "oldseasoul",
+        "email": "oldseasoul@163.com"
+      },
+      "source": "./plugins/skill-creator",
       "category": "development",
       "tags": [
         "skill",
@@ -268,8 +323,11 @@
       "name": "skill-writer",
       "description": "快速生成简单的 SKILL.md 文件（纯指令型技能）。当用户要求\"快速创建skill\"、\"生成SKILL.md模板\"、将提示词转换为技能时使用。对于需要脚本/资源/打包工具的复杂技能，使用 skil",
       "version": "1.0.0",
-      "author": "oldseasoul",
-      "source": "plugins/skill-writer",
+      "author": {
+        "name": "oldseasoul",
+        "email": "oldseasoul@163.com"
+      },
+      "source": "./plugins/skill-writer",
       "category": "development",
       "tags": [
         "skill",
@@ -281,8 +339,11 @@
       "name": "spring-api-doc",
       "description": "为 Spring Controller API 编写符合顺道公司规范的文档（两层结构：核心API文档 + 完整使用手册）。当用户需要为 Spring Controller 接口生成API文档、编写接口",
       "version": "1.0.0",
-      "author": "oldseasoul",
-      "source": "plugins/spring-api-doc",
+      "author": {
+        "name": "oldseasoul",
+        "email": "oldseasoul@163.com"
+      },
+      "source": "./plugins/spring-api-doc",
       "category": "development",
       "tags": [
         "java",
@@ -295,8 +356,11 @@
       "name": "syntho",
       "description": "顺道私有代码库智能检索助手。当用户需要查找代码、浏览项目、搜索实现、查看源码时使用。支持 /syntho 触发。",
       "version": "1.0.0",
-      "author": "oldseasoul",
-      "source": "plugins/syntho",
+      "author": {
+        "name": "oldseasoul",
+        "email": "oldseasoul@163.com"
+      },
+      "source": "./plugins/syntho",
       "category": "utility",
       "tags": [
         "code-search",
@@ -308,8 +372,11 @@
       "name": "tm-generate",
       "description": "根据 DDL 语句、表描述或表名生成 TM（表模型）文件。适用于 JDBC 数据源（MySQL、PostgreSQL 等关系型数据库）。MongoDB 模型请使用 tm-generate-mongo ",
       "version": "1.0.0",
-      "author": "oldseasoul",
-      "source": "plugins/tm-generate",
+      "author": {
+        "name": "oldseasoul",
+        "email": "oldseasoul@163.com"
+      },
+      "source": "./plugins/tm-generate",
       "category": "development",
       "tags": [
         "tm",
@@ -323,8 +390,11 @@
       "name": "tm-generate-mongo",
       "description": "根据 MongoDB 集合信息生成 TM（表模型）文件。当用户需要为 MongoDB 集合创建数据模型、生成 mongo 类型的 .tm 文件时使用。",
       "version": "1.0.0",
-      "author": "oldseasoul",
-      "source": "plugins/tm-generate-mongo",
+      "author": {
+        "name": "oldseasoul",
+        "email": "oldseasoul@163.com"
+      },
+      "source": "./plugins/tm-generate-mongo",
       "category": "development",
       "tags": [
         "tm",
@@ -337,8 +407,11 @@
       "name": "tm-syntax-reference",
       "description": "Foggy TM 语法参考手册。当需要了解 TM 类型映射、Name 字段规则、Measures 设计原则、维度定义语法时使用。",
       "version": "1.0.0",
-      "author": "oldseasoul",
-      "source": "plugins/tm-syntax-reference",
+      "author": {
+        "name": "oldseasoul",
+        "email": "oldseasoul@163.com"
+      },
+      "source": "./plugins/tm-syntax-reference",
       "category": "development",
       "tags": [
         "tm",
@@ -351,8 +424,11 @@
       "name": "xiaohongshu-note",
       "description": "生成小红书风格的项目进度笔记。当用户要求生成进度笔记、小红书笔记、项目汇报笔记、或使用 /xiaohongshu-note 时使用。",
       "version": "1.0.0",
-      "author": "oldseasoul",
-      "source": "plugins/xiaohongshu-note",
+      "author": {
+        "name": "oldseasoul",
+        "email": "oldseasoul@163.com"
+      },
+      "source": "./plugins/xiaohongshu-note",
       "category": "utility",
       "tags": [
         "note",
