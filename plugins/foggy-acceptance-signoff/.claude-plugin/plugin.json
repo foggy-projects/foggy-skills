@@ -1,7 +1,7 @@
 {
   "name": "foggy-acceptance-signoff",
   "version": "1.0.0",
-  "description": "Foggy 验收签收技能。用于版本级或功能级验收、证据汇总、签收结论输出与状态回写。",
+  "description": "对版本目录或单功能执行验收，汇总 requirement、implementation plan、progress、test、experience 与 evidence，生成明确的验收记录并给出签收结论。用于对版本文档目录做全量验收、对某个功能单独验收、输出 accepted or rejected or blocked 结论、或需要回写签收标记时使用。",
   "author": {
     "name": "oldseasoul",
     "email": "oldseasoul@163.com"

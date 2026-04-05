@@ -28,6 +28,7 @@ description: 对版本目录或单功能执行验收，汇总 requirement、impl
 - `foggy-versioned-doc-tracking`
 - `foggy-plan-execution-docs`
 - `integration-test`
+- `foggy-bug-regression-workflow`
 
 ## 验收模式
 
@@ -62,6 +63,7 @@ description: 对版本目录或单功能执行验收，汇总 requirement、impl
 - 功能级验收通常由 owning module / owning repo 侧发起并编写。
 - 版本级验收通常由 root-controller、release owner 或统一签收角色发起并编写。
 - 如果需要对验收结论做第二轮审视，可在产出验收文档后再调用 `plan-evaluator` 做二次评审，但它不替代正式签收。
+- 如果验收过程中发现新的 BUG，应由 `foggy-acceptance-signoff` 保留缺陷结论，再转交 `foggy-bug-regression-workflow` 建立 BUG work item、判断测试回补策略与修复清单。
 
 ## 最小输入
 
@@ -211,6 +213,27 @@ evidence_count: 0
    - `blocked`
 7. 写入验收记录。
 8. 如用户要求，回写签收标记到上游 root 文档和相关子模块文档。
+
+## 验收发现 BUG 的处理规则
+
+当验收过程中发现 BUG 时：
+- 不要在验收文档中直接展开修复方案
+- 先根据影响决定本次验收结论是 `rejected`、`blocked` 或 `accepted-with-risks`
+- 在 `## Risks / Open Items` 和 `## Failed Items` 中写清 BUG 摘要
+- 立即转交 `foggy-bug-regression-workflow`
+
+转交时至少带上：
+- BUG 来源：`acceptance-found`
+- 对应 acceptance record 路径
+- 缺陷摘要
+- 影响范围
+- 已有证据
+
+验收文档里只需要保留：
+- BUG 摘要
+- 是否阻断签收
+- BUG work item 路径
+- 是否需要修复后重新验收
 
 ## 结论判定规则
 

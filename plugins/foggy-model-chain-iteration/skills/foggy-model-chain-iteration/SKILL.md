@@ -1,4 +1,4 @@
-﻿---
+---
 name: foggy-model-chain-iteration
 description: Foggy 模型链路迭代向导。用于围绕 DDL/TM/QM/API/前端组件这一条开发链路分析当前状态、确定下一步工作、编排技能调用顺序。当用户开始模型驱动开发迭代、询问这条链路下一步该做什么、或使用 /iterate 时使用。不要把它当作通用项目治理、版本规划、子模块落盘或验收 skill。
 ---

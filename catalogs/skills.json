@@ -125,7 +125,7 @@
     },
     {
       "name": "foggy-model-chain-iteration",
-      "description": "Foggy 模型链路迭代向导。围绕 DDL/TM/QM/API/前端组件链路做阶段判断、技能编排与下一步引导。",
+      "description": "Foggy 模型链路迭代向导。用于围绕 DDL/TM/QM/API/前端组件这一条开发链路分析当前状态、确定下一步工作、编排技能调用顺序。当用户开始模型驱动开发迭代、询问这条链路下一步该做什么、或使用 /iterate 时使用。不要把它当作通用项目治理、版本规划、子模块落盘或验收 skill。",
       "version": "1.0.0",
       "category": "development",
       "tags": [
@@ -144,7 +144,7 @@
     },
     {
       "name": "foggy-acceptance-signoff",
-      "description": "对版本目录或单功能执行验收，汇总 requirement、implementation plan、progress、test、experience 与 evidence，生成明确的验收记录并给出签收结论。",
+      "description": "对版本目录或单功能执行验收，汇总 requirement、implementation plan、progress、test、experience 与 evidence，生成明确的验收记录并给出签收结论。用于对版本文档目录做全量验收、对某个功能单独验收、输出 accepted or rejected or blocked 结论、或需要回写签收标记时使用。",
       "version": "1.0.0",
       "category": "development",
       "tags": [
@@ -153,6 +153,24 @@
         "qa",
         "documentation",
         "versioning"
+      ],
+      "author": {
+        "name": "oldseasoul",
+        "email": "oldseasoul@163.com"
+      },
+      "license": "MIT"
+    },
+    {
+      "name": "foggy-bug-regression-workflow",
+      "description": "对用户报告或验收发现的 BUG 建立标准处理流程，完成问题记录、复现判断、测试回补决策、修复清单与代码关联。用于报告 BUG、验收发现缺陷、需要先建立失败测试再修复、或需要判断是否必须补单元测试或集成测试时使用。",
+      "version": "1.0.0",
+      "category": "development",
+      "tags": [
+        "bug",
+        "regression",
+        "testing",
+        "workflow",
+        "qa"
       ],
       "author": {
         "name": "oldseasoul",

@@ -1,0 +1,3 @@
+interface:
+  display_name: "Foggy Bug Regression Workflow"
+  short_description: "对用户报告或验收发现的 BUG 建立标准处理流程，完成问题记录、复现判断、测试回补决策、修复清单与代码关联"

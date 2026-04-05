@@ -1,4 +1,3 @@
 interface:
   display_name: "Foggy Acceptance Signoff"
-  short_description: "版本级与功能级验收、证据汇总和签收落盘"
-  default_prompt: "分析指定版本或功能的验收依据与证据，生成正式验收记录并给出签收结论"
+  short_description: "对版本目录或单功能执行验收，汇总 requirement、implementation plan、progre…"
