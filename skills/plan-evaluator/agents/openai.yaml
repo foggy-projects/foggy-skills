@@ -1,0 +1,3 @@
+interface:
+  display_name: "Plan Evaluator"
+  short_description: "评估技术优化计划的可维护性，分析替代方案，识别潜在风险"

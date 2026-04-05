@@ -1,0 +1,3 @@
+interface:
+  display_name: "MONGO Model Dev"
+  short_description: "开发和迭代 foggy-dataset-model-mongo 模块（MongoDB 数据模型支持）"

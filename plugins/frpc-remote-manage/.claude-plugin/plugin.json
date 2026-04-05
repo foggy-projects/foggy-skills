@@ -1,7 +1,7 @@
 {
   "name": "frpc-remote-manage",
   "version": "1.0.0",
-  "description": "Remote frpc (frp client) configuration management via SSH. Pull, edit, push config and restart frpc service on remote se",
+  "description": "Remote frpc (frp client) configuration management via SSH. Pull, edit, push config and restart frpc service on remote servers. Use when: (1) user wants to modify frpc proxy config, (2) add/remove/edit frpc proxy rules, (3) check frpc status, (4) restart frpc service, (5) user mentions 'frpc', 'frp', 'reverse proxy config', or '/frpc'.",
   "author": {
     "name": "oldseasoul",
     "email": "oldseasoul@163.com"

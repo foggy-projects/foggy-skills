@@ -1,7 +1,7 @@
 {
   "name": "build-and-push",
   "version": "1.0.0",
-  "description": "Build & Push 项目构建部署技能",
+  "description": "Build & Push 项目构建部署技能。用于指导项目构建、镜像推送与部署流程。",
   "author": {
     "name": "oldseasoul",
     "email": "oldseasoul@163.com"

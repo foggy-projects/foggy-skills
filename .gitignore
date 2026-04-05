@@ -1,6 +1,8 @@
 /playwright-cli/
 /find-skills/
 /ask-agent/
+__pycache__/
+*.pyc
 
 # Sensitive env files (SSH credentials etc.)
 **/.env

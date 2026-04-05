@@ -1,0 +1,3 @@
+interface:
+  display_name: "Preagg Cache Optimize"
+  short_description: "预聚合与缓存优化技能"

@@ -1,0 +1,3 @@
+interface:
+  display_name: "FRPC Remote Manage"
+  short_description: "Remote frpc (frp client) configuration management via S…"

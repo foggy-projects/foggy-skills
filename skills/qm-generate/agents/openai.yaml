@@ -1,0 +1,3 @@
+interface:
+  display_name: "QM Generate"
+  short_description: "根据 TM 模型生成 QM（查询模型）文件"

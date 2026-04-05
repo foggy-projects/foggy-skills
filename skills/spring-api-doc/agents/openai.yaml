@@ -1,0 +1,3 @@
+interface:
+  display_name: "SPRING API Doc"
+  short_description: "为 Spring Controller API 编写符合顺道公司规范的文档（两层结构：核心API文档 + 完整…"

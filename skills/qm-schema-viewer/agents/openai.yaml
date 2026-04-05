@@ -1,0 +1,3 @@
+interface:
+  display_name: "QM Schema Viewer"
+  short_description: "查看 QM（查询模型）的 schema 信息"

@@ -1,0 +1,3 @@
+interface:
+  display_name: "Form Design"
+  short_description: "为Spring Boot项目设计二层结构Form/DTO的开发规范"

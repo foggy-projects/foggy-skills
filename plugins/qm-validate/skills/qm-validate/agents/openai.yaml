@@ -1,0 +1,3 @@
+interface:
+  display_name: "QM Validate"
+  short_description: "验证 TM/QM 模型文件是否正确"

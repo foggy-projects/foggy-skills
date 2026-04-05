@@ -1,0 +1,3 @@
+interface:
+  display_name: "Foggy Java Integration"
+  short_description: "指导 Java 项目引入 foggy-dataset-model 依赖并完成基础配置"

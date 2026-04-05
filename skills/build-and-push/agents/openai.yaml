@@ -1,0 +1,3 @@
+interface:
+  display_name: "Build And Push"
+  short_description: "Build & Push 项目构建部署技能"

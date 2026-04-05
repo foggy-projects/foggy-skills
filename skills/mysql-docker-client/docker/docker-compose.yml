@@ -1,0 +1,31 @@
+version: '3.8'
+
+services:
+  mysql-client:
+    image: mysql:8.0
+    container_name: mysql-client-skill
+    network_mode: host
+    # Keep container running for repeated use
+    command: tail -f /dev/null
+    restart: unless-stopped
+    environment:
+      # Client-only container, no server needed
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+    # No volumes or ports needed - this is a pure client
+
+# Usage Examples:
+#
+# Start the container:
+#   docker-compose up -d
+#
+# Execute SQL query:
+#   docker exec mysql-client-skill mysql -h<host> -P<port> -u<user> -p<password> <database> -e "SELECT * FROM users"
+#
+# Execute SQL file:
+#   docker exec -i mysql-client-skill mysql -h<host> -P<port> -u<user> -p<password> <database> < /path/to/script.sql
+#
+# Interactive MySQL shell:
+#   docker exec -it mysql-client-skill mysql -h<host> -P<port> -u<user> -p<password> <database>
+#
+# Stop the container:
+#   docker-compose down

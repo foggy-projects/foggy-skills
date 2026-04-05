@@ -26,7 +26,7 @@
     },
     {
       "name": "build-and-push",
-      "description": "Build & Push 项目构建部署技能",
+      "description": "Build & Push 项目构建部署技能。用于指导项目构建、镜像推送与部署流程。",
       "version": "1.0.0",
       "author": {
         "name": "oldseasoul",
@@ -75,7 +75,7 @@
     },
     {
       "name": "foggy-java-integration",
-      "description": "指导 Java 项目引入 foggy-dataset-model 依赖并完成基础配置。当用户需要在 Java/Spring Boot 项目中集成 Foggy Dataset Model、配置 TM/Q",
+      "description": "指导 Java 项目引入 foggy-dataset-model 依赖并完成基础配置。当用户需要在 Java/Spring Boot 项目中集成 Foggy Dataset Model、配置 TM/QM 模型时使用。",
       "version": "1.0.0",
       "author": {
         "name": "oldseasoul",
@@ -91,7 +91,7 @@
     },
     {
       "name": "foggy-model-workflow",
-      "description": "Foggy TM/QM 模型开发工作流编排。根据用户需求自动识别数据源类型，按正确顺序调用 tm-generate/tm-generate-mongo → qm-generate → qm-valid",
+      "description": "Foggy TM/QM 模型开发工作流编排。根据用户需求自动识别数据源类型，按正确顺序调用 tm-generate/tm-generate-mongo → qm-generate → qm-validate，一站式完成模型设计与验证。",
       "version": "1.0.0",
       "author": {
         "name": "oldseasoul",
@@ -175,7 +175,7 @@
     },
     {
       "name": "frpc-remote-manage",
-      "description": "Remote frpc (frp client) configuration management via SSH. Pull, edit, push config and restart frpc ",
+      "description": "Remote frpc (frp client) configuration management via SSH. Pull, edit, push config and restart frpc service on remote servers. Use when: (1) user wants to modify frpc proxy config, (2) add/remove/edit frpc proxy rules, (3) check frpc status, (4) restart frpc service, (5) user mentions 'frpc', 'frp', 'reverse proxy config', or '/frpc'.",
       "version": "1.0.0",
       "author": {
         "name": "oldseasoul",
@@ -192,7 +192,7 @@
     },
     {
       "name": "mongo-model-dev",
-      "description": "开发和迭代 foggy-dataset-model-mongo 模块（MongoDB 数据模型支持）。当用户需要修改 MongoDB 查询引擎、表达式处理、TM/QM 模型加载、编写集成测试、或排查 ",
+      "description": "开发和迭代 foggy-dataset-model-mongo 模块（MongoDB 数据模型支持）。当用户需要修改 MongoDB 查询引擎、表达式处理、TM/QM 模型加载、编写集成测试、或排查 MongoDB 聚合管道问题时使用。",
       "version": "1.0.0",
       "author": {
         "name": "oldseasoul",
@@ -208,7 +208,7 @@
     },
     {
       "name": "mysql-docker-client",
-      "description": "Execute MySQL operations through Docker container client. Use when you need to: (1) Execute SQL quer",
+      "description": "Execute MySQL operations through Docker container client. Use when you need to: (1) Execute SQL queries or modifications on remote MySQL databases, (2) Run DDL statements (CREATE/ALTER/DROP tables), (3) Execute SQL script files, (4) Export query results, (5) Perform database migrations or bulk operations. Supports both single SQL commands and batch file execution.",
       "version": "1.0.0",
       "author": {
         "name": "oldseasoul",
@@ -305,7 +305,7 @@
     },
     {
       "name": "skill-creator",
-      "description": "Guide for creating effective skills. This skill should be used when users want to create a new skill",
+      "description": "Guide for creating effective skills. This skill should be used when users want to create a new skill (or update an existing skill) that extends Claude's capabilities with specialized knowledge, workflows, or tool integrations.",
       "version": "1.0.0",
       "author": {
         "name": "oldseasoul",
@@ -321,7 +321,7 @@
     },
     {
       "name": "skill-writer",
-      "description": "快速生成简单的 SKILL.md 文件（纯指令型技能）。当用户要求\"快速创建skill\"、\"生成SKILL.md模板\"、将提示词转换为技能时使用。对于需要脚本/资源/打包工具的复杂技能，使用 skil",
+      "description": "快速生成简单的 SKILL.md 文件（纯指令型技能）。当用户要求\"快速创建skill\"、\"生成SKILL.md模板\"、将提示词转换为技能时使用。对于需要脚本/资源/打包工具的复杂技能，使用 skill-creator。",
       "version": "1.0.0",
       "author": {
         "name": "oldseasoul",
@@ -337,7 +337,7 @@
     },
     {
       "name": "spring-api-doc",
-      "description": "为 Spring Controller API 编写符合顺道公司规范的文档（两层结构：核心API文档 + 完整使用手册）。当用户需要为 Spring Controller 接口生成API文档、编写接口",
+      "description": "为 Spring Controller API 编写符合顺道公司规范的文档（两层结构：核心API文档 + 完整使用手册）。当用户需要为 Spring Controller 接口生成API文档、编写接口文档、或使用 /spring-api-doc 时使用。",
       "version": "1.0.0",
       "author": {
         "name": "oldseasoul",
@@ -370,7 +370,7 @@
     },
     {
       "name": "tm-generate",
-      "description": "根据 DDL 语句、表描述或表名生成 TM（表模型）文件。适用于 JDBC 数据源（MySQL、PostgreSQL 等关系型数据库）。MongoDB 模型请使用 tm-generate-mongo ",
+      "description": "根据 DDL 语句、表描述或表名生成 TM（表模型）文件。适用于 JDBC 数据源（MySQL、PostgreSQL 等关系型数据库）。MongoDB 模型请使用 tm-generate-mongo 技能。",
       "version": "1.0.0",
       "author": {
         "name": "oldseasoul",

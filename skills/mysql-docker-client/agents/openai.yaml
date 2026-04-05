@@ -1,0 +1,3 @@
+interface:
+  display_name: "MYSQL Docker Client"
+  short_description: "Execute MySQL operations through Docker container client"

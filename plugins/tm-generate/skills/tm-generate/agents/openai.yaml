@@ -1,0 +1,3 @@
+interface:
+  display_name: "TM Generate"
+  short_description: "根据 DDL 语句、表描述或表名生成 TM（表模型）文件"
