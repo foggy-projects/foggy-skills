@@ -1,0 +1,17 @@
+{
+  "name": "foggy-acceptance-signoff",
+  "version": "1.0.0",
+  "description": "Foggy 验收签收技能。用于版本级或功能级验收、证据汇总、签收结论输出与状态回写。",
+  "author": {
+    "name": "oldseasoul",
+    "email": "oldseasoul@163.com"
+  },
+  "license": "MIT",
+  "keywords": [
+    "acceptance",
+    "signoff",
+    "qa",
+    "documentation",
+    "versioning"
+  ]
+}

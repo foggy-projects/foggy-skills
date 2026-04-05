@@ -124,18 +124,38 @@
       ]
     },
     {
-      "name": "foggy-project-iteration",
-      "description": "Foggy 项目迭代向导。分析项目当前状态，确定下一步工作，编排技能调用顺序。当用户开始新的开发迭代、询问下一步该做什么、或使用 /iterate 时使用。",
+      "name": "foggy-acceptance-signoff",
+      "description": "Foggy 验收签收技能。用于版本级或功能级验收、证据汇总、签收结论输出与状态回写。",
       "version": "1.0.0",
       "author": {
         "name": "oldseasoul",
         "email": "oldseasoul@163.com"
       },
-      "source": "./plugins/foggy-project-iteration",
+      "source": "./plugins/foggy-acceptance-signoff",
+      "category": "development",
+      "tags": [
+        "acceptance",
+        "signoff",
+        "qa",
+        "documentation",
+        "versioning"
+      ]
+    },
+    {
+      "name": "foggy-model-chain-iteration",
+      "description": "TM/QM/API/前端组件链路的阶段判断、编排与迭代引导。",
+      "version": "1.0.0",
+      "author": {
+        "name": "oldseasoul",
+        "email": "oldseasoul@163.com"
+      },
+      "source": "./plugins/foggy-model-chain-iteration",
       "category": "development",
       "tags": [
         "workflow",
-        "project",
+        "tm",
+        "qm",
+        "frontend",
         "iteration"
       ]
     },
