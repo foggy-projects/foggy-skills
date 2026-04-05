@@ -1,0 +1,18 @@
+{
+  "name": "foggy-model-chain-iteration",
+  "version": "1.0.0",
+  "description": "Foggy 模型链路迭代向导。围绕 DDL/TM/QM/API/前端组件链路做阶段判断、技能编排与下一步引导。",
+  "author": {
+    "name": "oldseasoul",
+    "email": "oldseasoul@163.com"
+  },
+  "license": "MIT",
+  "keywords": [
+    "workflow",
+    "tm",
+    "qm",
+    "frontend",
+    "iteration",
+    "model-chain"
+  ]
+}

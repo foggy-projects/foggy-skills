@@ -107,14 +107,17 @@
       "license": "MIT"
     },
     {
-      "name": "foggy-project-iteration",
-      "description": "Foggy 项目迭代向导。分析项目当前状态，确定下一步工作，编排技能调用顺序。当用户开始新的开发迭代、询问下一步该做什么、或使用 /iterate 时使用。",
+      "name": "foggy-model-chain-iteration",
+      "description": "Foggy 模型链路迭代向导。围绕 DDL/TM/QM/API/前端组件链路做阶段判断、技能编排与下一步引导。",
       "version": "1.0.0",
       "category": "development",
       "tags": [
         "workflow",
-        "project",
-        "iteration"
+        "tm",
+        "qm",
+        "frontend",
+        "iteration",
+        "model-chain"
       ],
       "author": {
         "name": "oldseasoul",
