@@ -13,10 +13,10 @@ Ensure `sshpass` is installed if using password auth: `apt install sshpass` or `
 
 ## Setup
 
-Check if `.env` exists in the skill directory. If not, copy from `.env.example` and ask user to fill in:
+Check if `.env` exists in the skill directory. If not, copy from `assets/.env.example` and ask user to fill in:
 
 ```bash
-cp .env.example .env
+cp assets/.env.example .env
 ```
 
 Then prompt user to edit `.env` with their SSH and frpc details.

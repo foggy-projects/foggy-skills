@@ -15,8 +15,8 @@
 ```
 mysql-docker-client/
 ├── SKILL.md                    # 技能定义（LLM 读取）
-├── USAGE.md                    # 使用说明（用户参考）
-├── docker/
+├── references/USAGE.md         # 使用说明（用户参考）
+├── assets/docker/
 │   └── docker-compose.yml     # MySQL 客户端容器配置
 ├── scripts/
 │   ├── docker_utils.py        # 容器自动管理工具
@@ -156,7 +156,7 @@ python scripts/export_data.py \
 ## 参考文档
 
 - **SKILL.md** - LLM 读取的技能定义
-- **USAGE.md** - 详细使用说明
+- **references/USAGE.md** - 详细使用说明
 - **references/mysql-operations.md** - MySQL 操作参考（DDL、索引、迁移模式）
 
 ## 技术细节

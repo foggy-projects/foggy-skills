@@ -134,9 +134,10 @@ docs/订单管理/订单管理-创建-POST-使用手册.md (≤10KB)
 ```
 spring-api-doc/
 ├── SKILL.md          # 技能主文件（执行指令）
-├── reference.md      # 详细参考文档
-├── examples.md       # 文档生成示例
-└── README.md         # 本文件
+├── references/
+│   ├── reference.md  # 详细参考文档
+│   ├── examples.md   # 文档生成示例
+│   └── README.md     # 本文件
 ```
 
 ## 示例

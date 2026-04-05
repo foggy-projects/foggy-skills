@@ -8,7 +8,7 @@ description: 根据 TM 模型生成 QM（查询模型）文件。当用户要求
 根据 TM 模型生成 QM（查询模型）文件，定义可查询的字段和 UI 配置。
 
 ## QM语法规范
-如果需要获取更多的qm语法规范，请参考[Foggy QM 语法规范](https://foggy-projects.github.io/foggy-data-mcp-docs/downloads/qm-syntax.md)
+如果需要获取更多的qm语法规范，请参考[Foggy QM 语法规范](https://foggy-projects.github.io/foggy-data-mcp-bridge/downloads/qm-syntax.md)
 
 ## TM 与 QM 的架构关系
 
@@ -30,7 +30,6 @@ QM (查询模型) → 定义用户可查询的视图，是唯一的查询入口
 - 为事实表生成查询视图
 - 创建多模型关联的查询模型
 - 添加计算字段到查询模型
-- 为前端组件体系准备可消费的 QM 模型
 
 ## 执行流程
 
@@ -47,9 +46,7 @@ QM (查询模型) → 定义用户可查询的视图，是唯一的查询入口
    - 添加默认排序（通常按时间字段降序）
 4. 将 QM 文件写入 `{TM模型名}QueryModel.qm`
 5. **注册 QM 到 `application.yml`**（见下方"模型注册"章节）
-6. 如果该 QM 将接前端组件体系，补齐前端友好约束（见下方）
-7. 如运行环境可用，执行一次 `qm-validate` 或 `frontend-meta` smoke
-8. 输出文件路径和生成的字段列表
+6. 输出文件路径和生成的字段列表
 
 ## 输入要求
 
@@ -131,13 +128,6 @@ QM 文件已生成：{文件路径}
 - 度量：{字段列表}
 ```
 
-如果该 QM 要给前端组件体系消费，额外报告：
-
-- 默认排序字段
-- 维度字段中哪些适合 member lookup
-- 是否包含层级维度
-- 后置验证是否已执行（`qm-validate` / `frontend-meta`）
-
 ## 约束条件
 
 - QM 文件名格式：`{TM模型名}QueryModel.qm`
@@ -150,17 +140,6 @@ QM 文件已生成：{文件路径}
   - 禁止写 `product$category$caption`（多个 `$`），解析器无法区分维度路径和属性名
 - 输出列名自动转换：路径中 `.` → `_`（如 `product.category$caption` → `product_category$caption`）
 
-## 前端组件体系兼容要求
-
-如果用户后续要接 `foggy-data-viewer` / 代码生成器，生成 QM 时额外遵守：
-
-- 可展示字段必须有稳定 `caption`
-- 维度字段要能稳定推导 `$id / $caption`
-- 树形维度要让 `childrenOf`、`descendantsOf` 等层级查询有清晰语义
-- 枚举字段优先补 `dict` 语义，避免前端只能当纯文本处理
-- 默认排序优先选业务主时间字段，保证 DataViewer 首屏稳定
-- 非必要敏感字段不要暴露到 QM
-
 ## 决策规则
 
 - 如果 TM 模型包含时间字段 → 默认排序使用该字段降序
@@ -170,7 +149,6 @@ QM 文件已生成：{文件路径}
 - 如果 TM 模型无度量字段 → 仅生成属性和维度分组
 - 如果字段名包含中文 → 保留中文字段名，添加 caption 显示名称
 - 如果用户需要排名/趋势/利润率等分析字段 → 读取 `references/predefined-calculated-fields.md` 生成预定义计算字段
-- 如果该 QM 主要给前端组件体系使用 → 优先保证 caption、维度、字典、层级能力完整，再考虑列数量
 
 ## 默认列分组策略
 

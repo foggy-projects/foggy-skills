@@ -10,7 +10,7 @@ LOCAL_CONFIG="/tmp/frpc_config_$(date +%s)"
 load_env() {
   if [[ ! -f "$ENV_FILE" ]]; then
     echo "ERROR: .env file not found at $ENV_FILE"
-    echo "Please copy .env.example to .env and fill in your SSH/frpc details."
+    echo "Please copy assets/.env.example to .env and fill in your SSH/frpc details."
     exit 1
   fi
   set -a

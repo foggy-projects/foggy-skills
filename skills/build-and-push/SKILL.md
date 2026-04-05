@@ -12,9 +12,9 @@ description: Build & Push 项目构建部署技能。用于指导项目构建、
 ## 📚 文档导航
 
 - [使用方法](#使用方法)
-- [代码示例](./examples.md) - 常见场景的代码示例
-- [脚本模板](./templates/) - 可直接使用的脚本模板
-- [故障排查](./troubleshooting.md) - 常见问题及解决方案
+- [代码示例](./references/examples.md) - 常见场景的代码示例
+- [脚本模板](./assets/templates/) - 可直接使用的脚本模板
+- [故障排查](./references/troubleshooting.md) - 常见问题及解决方案
 
 ## 适用场景
 
@@ -163,7 +163,7 @@ modules:
     health_check: "/actuator/health"
 ```
 
-更多配置详情请查看 [examples.md](./examples.md)
+更多配置详情请查看 [examples.md](./references/examples.md)
 
 ## 快速开始
 
@@ -189,6 +189,6 @@ Install-Module -Name powershell-yaml -Force -Scope CurrentUser
 
 ## 更多资源
 
-- 📖 [完整示例参考](./examples.md)
-- 🛠️ [脚本模板](./templates/)
-- 🔧 [故障排查指南](./troubleshooting.md)
+- 📖 [完整示例参考](./references/examples.md)
+- 🛠️ [脚本模板](./assets/templates/)
+- 🔧 [故障排查指南](./references/troubleshooting.md)
