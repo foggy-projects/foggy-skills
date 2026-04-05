@@ -126,6 +126,24 @@
       "license": "MIT"
     },
     {
+      "name": "foggy-acceptance-signoff",
+      "description": "对版本目录或单功能执行验收，汇总 requirement、implementation plan、progress、test、experience 与 evidence，生成明确的验收记录并给出签收结论。",
+      "version": "1.0.0",
+      "category": "development",
+      "tags": [
+        "acceptance",
+        "signoff",
+        "qa",
+        "documentation",
+        "versioning"
+      ],
+      "author": {
+        "name": "oldseasoul",
+        "email": "oldseasoul@163.com"
+      },
+      "license": "MIT"
+    },
+    {
       "name": "form-design",
       "description": "为Spring Boot项目设计二层结构Form/DTO的开发规范。当用户需要设计接口参数、创建Form/DTO类、或使用 /form-design 时使用。",
       "version": "1.0.0",
