@@ -1,0 +1,16 @@
+{
+  "name": "foggy-plan-execution-docs",
+  "version": "1.0.0",
+  "description": "将已经讨论并确认可落地的跨模块或跨仓规划，拆解为可执行的版本化文档包，支持 requirement、plan、可选 execution prompt 和 acceptance evidence。",
+  "author": {
+    "name": "oldseasoul",
+    "email": "oldseasoul@163.com"
+  },
+  "license": "MIT",
+  "keywords": [
+    "planning",
+    "execution",
+    "documentation",
+    "acceptance"
+  ]
+}

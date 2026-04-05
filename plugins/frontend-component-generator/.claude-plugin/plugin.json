@@ -1,7 +1,7 @@
 {
   "name": "frontend-component-generator",
-  "version": "1.0.0",
-  "description": "自动生成基于 foggy-data-viewer 的 Vue 业务组件。根据 QM 模型自动拉取 schema、生成组件代码、配置文件和文档。当用户需要快速创建数据表格业务组件时使用。",
+  "version": "1.1.0",
+  "description": "自动生成基于 foggy-data-viewer 的 Vue 业务组件。根据 frontend-meta v1 自动拉取或读取 QM 元数据，生成 generated 层代码，并在需要时补 modules/pages 包装层。",
   "author": {
     "name": "oldseasoul",
     "email": "oldseasoul@163.com"
