@@ -32,10 +32,9 @@ description: 快速生成简单的 SKILL.md 文件（纯指令型技能）。当
 2. **生成 SKILL.md 文件**（见输出模板）
 
 3. **如需要，创建辅助文件**：
-   - `reference.md` — 详细参考信息
-   - `examples.md` — 扩展示例
+   - `references/` — 详细参考信息和扩展示例
    - `scripts/` — 辅助脚本
-   - `templates/` — 文件模板
+   - `assets/` — 文件模板或输出资源
 
 ## 约束条件
 
@@ -49,9 +48,9 @@ description: 快速生成简单的 SKILL.md 文件（纯指令型技能）。当
 ```
 {skill-name}/
 ├── SKILL.md        # 必需
-├── reference.md    # 可选，详细参考
-├── examples.md     # 可选，更多示例
-└── scripts/        # 可选，辅助脚本
+├── references/     # 可选，详细参考与示例
+├── scripts/        # 可选，辅助脚本
+└── assets/         # 可选，模板与输出资源
 ```
 
 ## 决策规则
@@ -61,7 +60,7 @@ description: 快速生成简单的 SKILL.md 文件（纯指令型技能）。当
 - 技能需要网络请求 → 添加 `allowed-tools` 包含 `WebFetch`
 - 技能涉及敏感操作 → 在执行步骤中加入确认环节
 - 用户提供现有提示词 → 提取核心逻辑，转换为结构化技能格式
-- 技能内容超过 200 行 → 拆分到 reference.md 或 examples.md
+- 技能内容超过 200 行 → 拆分到 `references/` 下的独立文档
 
 ## 输出模板
 

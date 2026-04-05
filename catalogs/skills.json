@@ -107,6 +107,23 @@
       "license": "MIT"
     },
     {
+      "name": "foggy-plan-execution-docs",
+      "description": "将已经讨论并确认可落地的跨模块或跨仓规划，拆解为可执行的版本化文档包。适用于需要把规划转成 requirement、module responsibility、code inventory、implementation plan，以及可选 execution prompt 的场景。触发词：提及“拆成执行文档”“生成开发规划”“生成代码清单”“生成开工提示词”“规划转执行”“requirement+plan”。",
+      "version": "1.0.0",
+      "category": "development",
+      "tags": [
+        "planning",
+        "execution",
+        "documentation",
+        "acceptance"
+      ],
+      "author": {
+        "name": "oldseasoul",
+        "email": "oldseasoul@163.com"
+      },
+      "license": "MIT"
+    },
+    {
       "name": "foggy-model-chain-iteration",
       "description": "Foggy 模型链路迭代向导。围绕 DDL/TM/QM/API/前端组件链路做阶段判断、技能编排与下一步引导。",
       "version": "1.0.0",

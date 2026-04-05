@@ -1,6 +1,6 @@
 {
   "name": "tm-generate",
-  "version": "1.1.0",
+  "version": "1.0.0",
   "description": "根据 DDL 语句、表描述或表名生成 TM（表模型）文件。适用于 JDBC 数据源（MySQL、PostgreSQL 等关系型数据库）。MongoDB 模型请使用 tm-generate-mongo 技能。",
   "author": {
     "name": "oldseasoul",
@@ -12,7 +12,6 @@
     "table-model",
     "jdbc",
     "ddl",
-    "code-generation",
-    "frontend-meta"
+    "code-generation"
   ]
 }

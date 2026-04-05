@@ -1,6 +1,6 @@
 {
   "name": "qm-generate",
-  "version": "1.1.0",
+  "version": "1.0.0",
   "description": "根据 TM 模型生成 QM（查询模型）文件。当用户要求生成 QM 文件、创建查询模型、或使用 /qm 时使用。",
   "author": {
     "name": "oldseasoul",
@@ -10,7 +10,6 @@
   "keywords": [
     "qm",
     "query-model",
-    "code-generation",
-    "frontend-meta"
+    "code-generation"
   ]
 }
