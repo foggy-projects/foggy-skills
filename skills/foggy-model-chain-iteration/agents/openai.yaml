@@ -1,4 +1,3 @@
-﻿interface:
+interface:
   display_name: "Foggy Model Chain Iteration"
-  short_description: "TM/QM/API/前端组件链路的阶段判断、编排与迭代引导"
-  default_prompt: "分析当前模型链路状态，判断所处阶段并推荐下一步技能调用顺序"
+  short_description: "Foggy 模型链路迭代向导"

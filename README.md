@@ -101,7 +101,7 @@ python scripts/build_marketplace.py --check
 
 ## 当前技能数量
 
-当前仓库包含 27 个 skill，目录元数据统一由 `catalogs/skills.json` 管理。
+当前仓库包含 28 个 skill，目录元数据统一由 `catalogs/skills.json` 管理。
 
 ## License
 

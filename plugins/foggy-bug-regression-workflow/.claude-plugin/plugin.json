@@ -1,0 +1,17 @@
+{
+  "name": "foggy-bug-regression-workflow",
+  "version": "1.0.0",
+  "description": "对用户报告或验收发现的 BUG 建立标准处理流程，完成问题记录、复现判断、测试回补决策、修复清单与代码关联。用于报告 BUG、验收发现缺陷、需要先建立失败测试再修复、或需要判断是否必须补单元测试或集成测试时使用。",
+  "author": {
+    "name": "oldseasoul",
+    "email": "oldseasoul@163.com"
+  },
+  "license": "MIT",
+  "keywords": [
+    "bug",
+    "regression",
+    "testing",
+    "workflow",
+    "qa"
+  ]
+}
