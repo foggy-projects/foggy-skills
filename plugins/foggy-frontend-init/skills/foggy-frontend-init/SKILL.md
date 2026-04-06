@@ -44,40 +44,30 @@ description: 初始化前端项目的 Foggy 组件接入环境。安装 foggy-da
 
 根据项目所处阶段选择安装方式。**优先询问用户当前阶段**，如未明确则默认联调阶段。
 
-#### 联调阶段（推荐）— GitHub 直装
-
-项目初期或组件库仍在频繁迭代时，从 GitHub 分支直接安装，免去等待 npm 发版：
+#### 联调阶段（推荐）— npm beta 或本地 link
 
 ```bash
-# 从 GitHub 8.1.10-dev 分支安装最新代码
-npm install foggy-data-viewer@github:foggy-projects/foggy-data-mcp-bridge#8.1.10-dev
+# 方式 A：npm beta 版（推荐）
+npm install foggy-data-viewer@beta
+
+# 方式 B：本地 link（频繁迭代时推荐，改动即时生效）
+cd /path/to/foggy-data-mcp-bridge/addons/foggy-data-viewer/frontend
+npm link
+cd /path/to/your-business-project
+npm link foggy-data-viewer
 
 # 安装 peer 依赖
 npm install vxe-pc-ui vxe-table xe-utils element-plus axios
 ```
 
-**优点**：随时拿到最新改动，`npm update` 即可同步
-**注意**：依赖 GitHub 可达性；若网络不稳定可改用本地 link
+> **⚠️ 不推荐 GitHub 整库安装**：`foggy-data-viewer` 是 Java monorepo (`foggy-data-mcp-bridge`) 的子目录，
+> `npm install github:foggy-projects/foggy-data-mcp-bridge#branch` 会下载整个 Java 项目（>100MB），
+> 且 `dist/` 不在源码中，需要额外配置 Vite alias。请使用 npm 包或本地 link。
 
-本地 link 备选（离线开发）：
-
-```bash
-cd /path/to/foggy-data-mcp-bridge/addons/foggy-data-viewer/frontend
-npm link
-
-cd /path/to/your-business-project
-npm link foggy-data-viewer
-```
-
-#### 稳定阶段 — npm 包
-
-组件库 API 稳定后，切换到 npm registry 安装：
+#### 稳定阶段 — npm 正式版
 
 ```bash
-# beta 版
-npm install foggy-data-viewer@beta
-
-# 正式版（待发布后可用）
+# 正式版
 npm install foggy-data-viewer
 ```
 
@@ -129,7 +119,24 @@ export default defineConfig({
 })
 ```
 
-### 5. 确认生成链路
+### 5. 确认后端具备前端组件所需端点
+
+前端组件体系需要后端提供以下端点：
+
+| 端点 | 来源 | 说明 |
+|------|------|------|
+| `GET /data-viewer/api/frontend-meta/{qmModel}` | `foggy-data-viewer` addon | 元数据 |
+| `POST /data-viewer/api/query/direct/{qmModel}` | `foggy-data-viewer` addon | 直连查询 |
+| `POST /data-viewer/api/members/query` | `foggy-data-viewer` addon | 维度成员 |
+
+> **注意**：`@EnableFoggyFramework` + `@EnableDatasetClient` 只暴露 `/jdbc-model/` 端点，
+> 不包含 `frontend-meta`。需要额外引入 `foggy-data-viewer` JAR（含 `ViewerApiController`），
+> 并确保 MongoDB 可用（data-viewer 需要 MongoDB 缓存查询上下文）。
+>
+> 如果后端尚未具备这些端点，使用 `foggy-java-integration` skill 完成 Java 侧集成，
+> 或使用 `foggy-mcp-integration` skill 部署独立 MCP Server。
+
+### 6. 确认生成链路
 
 如果项目要自己生成 `generated/` 代码：
 
@@ -179,10 +186,10 @@ node node_modules/foggy-data-viewer/scripts/foggy-gen.mjs \
 
 | 阶段 | 安装方式 | package.json 示例 |
 |------|---------|-------------------|
-| 联调 / 频繁迭代 | GitHub 分支 | `"foggy-data-viewer": "github:foggy-projects/foggy-data-mcp-bridge#8.1.10-dev"` |
-| 本地离线 | npm link | 无 package.json 条目（link 模式） |
-| Beta 试用 | npm beta tag | `"foggy-data-viewer": "^1.0.1-beta.10"` |
+| 联调 / 频繁迭代 | npm beta 或本地 link | `"foggy-data-viewer": "^1.0.1-beta.10"` 或 link 模式 |
 | 正式上线 | npm latest | `"foggy-data-viewer": "^1.1.0"` |
+
+> ⚠️ 不推荐 `github:foggy-projects/foggy-data-mcp-bridge#branch`——会下载整个 Java monorepo。
 
 切换时只改 `package.json` 依赖声明，业务代码无需变动。
 
