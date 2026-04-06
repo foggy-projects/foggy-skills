@@ -1,0 +1,17 @@
+{
+  "name": "foggy-versioned-doc-tracking",
+  "version": "1.0.0",
+  "description": "Use when working in a multi-repo or multi-module workspace and the user asks to record a bug, requirement, optimization, or cross-project follow-up into versioned project docs, or to update development, testing, and experience progress in the correct owning module.",
+  "author": {
+    "name": "oldseasoul",
+    "email": "oldseasoul@163.com"
+  },
+  "license": "MIT",
+  "keywords": [
+    "documentation",
+    "versioning",
+    "tracking",
+    "progress",
+    "execution"
+  ]
+}
