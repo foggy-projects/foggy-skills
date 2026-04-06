@@ -179,6 +179,24 @@
       "license": "MIT"
     },
     {
+      "name": "foggy-versioned-doc-tracking",
+      "description": "Use when working in a multi-repo or multi-module workspace and the user asks to record a bug, requirement, optimization, or cross-project follow-up into versioned project docs, or to update development, testing, and experience progress in the correct owning module.",
+      "version": "1.0.0",
+      "category": "development",
+      "tags": [
+        "documentation",
+        "versioning",
+        "tracking",
+        "progress",
+        "execution"
+      ],
+      "author": {
+        "name": "oldseasoul",
+        "email": "oldseasoul@163.com"
+      },
+      "license": "MIT"
+    },
+    {
       "name": "form-design",
       "description": "为Spring Boot项目设计二层结构Form/DTO的开发规范。当用户需要设计接口参数、创建Form/DTO类、或使用 /form-design 时使用。",
       "version": "1.0.0",
