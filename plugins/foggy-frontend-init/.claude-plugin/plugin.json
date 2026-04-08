@@ -1,20 +1,15 @@
 {
   "name": "foggy-frontend-init",
-  "version": "1.1.0",
-  "description": "初始化前端项目的 Foggy 组件接入环境。联调阶段 GitHub 直装，稳定阶段切 npm 包；注册 VxeUI/VxeTable/ElementPlus；配置代码生成链路。",
+  "version": "1.0.0",
+  "description": "初始化前端项目的 Foggy 开发环境。安装依赖、创建配置文件、生成公共 API。当用户首次在前端项目中使用 Foggy 组件或查询 API 时使用。",
   "author": {
     "name": "oldseasoul",
-    "email": "oldseasoul@gmail.com"
+    "email": "oldseasoul@163.com"
   },
   "license": "MIT",
   "keywords": [
-    "foggy",
-    "vue3",
     "frontend",
-    "data-viewer",
-    "component",
-    "init",
-    "vxe-table",
-    "code-generator"
+    "vue",
+    "initialization"
   ]
 }
