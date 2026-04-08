@@ -1,6 +1,6 @@
 ---
 name: foggy-test-coverage-audit
-description: 对版本目录或单功能执行测试覆盖回归审计，检查 requirement、bug、acceptance item 与 unit、integration、e2e、playwright、manual evidence 的映射是否完整，并给出是否可进入验收及下一步建议技能。用于验收前测试证据检查、已签收版本的回归防护复盘、或需要判断先补测试用例还是直接补测试代码时使用。
+description: 在 foggy-implementation-quality-gate 之后、foggy-acceptance-signoff 之前执行测试证据覆盖审计，检查 requirement、bug、acceptance item 与 unit、integration、e2e、playwright、manual evidence 的映射是否完整，并判断是否可进入验收。仅用于测试证据盘点，不用于代码质量检查或正式签收。
 ---
 
 # Foggy Test Coverage Audit

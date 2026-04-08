@@ -180,7 +180,7 @@
     },
     {
       "name": "foggy-implementation-quality-gate",
-      "description": "对子模块或单功能的实现结果执行开发质量检查，确认代码实现、范围收口、自检、风险、文档回写与测试匹配情况是否达到进入测试覆盖审计或正式验收前的质量门槛。用于子模块自报开发完成后做质量闸门、BUG 修复后的实现质量复核、或需要判断能否进入 foggy-test-coverage-audit 时使用。",
+      "description": "对子模块或单功能在 execution-checkin 之后执行开发质量闸门检查，聚焦实现收口、重复与复杂度、可读性、关键逻辑注释、风险和文档回写，判断是否可进入 foggy-test-coverage-audit。仅用于实现质量复核，不用于测试覆盖审计、方案评审或正式验收。",
       "version": "1.0.0",
       "category": "development",
       "tags": [
@@ -198,7 +198,7 @@
     },
     {
       "name": "foggy-test-coverage-audit",
-      "description": "对版本目录或单功能执行测试覆盖回归审计，检查 requirement、bug、acceptance item 与 unit、integration、e2e、playwright、manual evidence 的映射是否完整，并给出是否可进入验收及下一步建议技能。用于验收前测试证据检查、已签收版本的回归防护复盘、或需要判断先补测试用例还是直接补测试代码时使用。",
+      "description": "在 foggy-implementation-quality-gate 之后、foggy-acceptance-signoff 之前执行测试证据覆盖审计，检查 requirement、bug、acceptance item 与 unit、integration、e2e、playwright、manual evidence 的映射是否完整，并判断是否可进入验收。仅用于测试证据盘点，不用于代码质量检查或正式签收。",
       "version": "1.0.0",
       "category": "development",
       "tags": [

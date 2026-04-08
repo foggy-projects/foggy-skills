@@ -1,6 +1,6 @@
 ---
 name: foggy-implementation-quality-gate
-description: 对子模块或单功能的实现结果执行开发质量检查，确认代码实现、范围收口、自检、风险、文档回写与测试匹配情况是否达到进入测试覆盖审计或正式验收前的质量门槛。用于子模块自报开发完成后做质量闸门、BUG 修复后的实现质量复核、或需要判断能否进入 foggy-test-coverage-audit 时使用。
+description: 对子模块或单功能在 execution-checkin 之后执行开发质量闸门检查，聚焦实现收口、重复与复杂度、可读性、关键逻辑注释、风险和文档回写，判断是否可进入 foggy-test-coverage-audit。仅用于实现质量复核，不用于测试覆盖审计、方案评审或正式验收。
 ---
 
 # Foggy Implementation Quality Gate
