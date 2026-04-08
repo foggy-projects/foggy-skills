@@ -1,7 +1,7 @@
 {
   "name": "plan-evaluator",
   "version": "1.0.0",
-  "description": "评估技术优化计划的可维护性，分析替代方案，识别潜在风险。当用户要求评估技术方案、审查优化计划、或使用 /evaluate-plan 时使用。",
+  "description": "评估技术方案、执行规划或验收文档的合理性，分析替代方案，识别潜在风险与证据缺口。当用户要求评估技术方案、审查优化计划、复核验收文档、或使用 /evaluate-plan 时使用。",
   "author": {
     "name": "oldseasoul",
     "email": "oldseasoul@163.com"

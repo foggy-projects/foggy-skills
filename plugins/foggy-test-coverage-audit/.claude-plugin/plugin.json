@@ -1,0 +1,17 @@
+{
+  "name": "foggy-test-coverage-audit",
+  "version": "1.0.0",
+  "description": "对版本目录或单功能执行测试覆盖回归审计，检查 requirement、bug、acceptance item 与 unit、integration、e2e、playwright、manual evidence 的映射是否完整，并给出是否可进入验收及下一步建议技能。用于验收前测试证据检查、已签收版本的回归防护复盘、或需要判断先补测试用例还是直接补测试代码时使用。",
+  "author": {
+    "name": "oldseasoul",
+    "email": "oldseasoul@163.com"
+  },
+  "license": "MIT",
+  "keywords": [
+    "testing",
+    "coverage",
+    "audit",
+    "acceptance",
+    "qa"
+  ]
+}

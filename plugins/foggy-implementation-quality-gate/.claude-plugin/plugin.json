@@ -1,0 +1,17 @@
+{
+  "name": "foggy-implementation-quality-gate",
+  "version": "1.0.0",
+  "description": "对子模块或单功能的实现结果执行开发质量检查，确认代码实现、范围收口、自检、风险、文档回写与测试匹配情况是否达到进入测试覆盖审计或正式验收前的质量门槛。用于子模块自报开发完成后做质量闸门、BUG 修复后的实现质量复核、或需要判断能否进入 foggy-test-coverage-audit 时使用。",
+  "author": {
+    "name": "oldseasoul",
+    "email": "oldseasoul@163.com"
+  },
+  "license": "MIT",
+  "keywords": [
+    "quality",
+    "delivery",
+    "code-review",
+    "readability",
+    "maintainability"
+  ]
+}

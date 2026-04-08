@@ -28,6 +28,8 @@ description: 对版本目录或单功能执行验收，汇总 requirement、impl
 - `foggy-versioned-doc-tracking`
 - `foggy-plan-execution-docs`
 - `integration-test`
+- `foggy-implementation-quality-gate`
+- `foggy-test-coverage-audit`
 - `foggy-bug-regression-workflow`
 
 ## 验收模式
@@ -59,6 +61,8 @@ description: 对版本目录或单功能执行验收，汇总 requirement、impl
 
 - 执行侧或 owning module 负责准备验收材料，包括 requirement、implementation plan、progress、test、experience 与 evidence。
 - `foggy-versioned-doc-tracking` 负责保证这些材料落在正确的版本目录和 owning repo 中，但不负责编写正式验收文档。
+- `foggy-test-coverage-audit` 负责在正式验收前后，检查 requirement、bug、acceptance item 与测试证据的映射是否充分，但不替代正式签收。
+- `foggy-implementation-quality-gate` 负责在覆盖审计和正式验收前检查实现质量是否达到基本门槛。
 - `foggy-acceptance-signoff` 负责编写正式验收文档、形成签收结论、并在需要时回写签收标记。
 - 功能级验收通常由 owning module / owning repo 侧发起并编写。
 - 版本级验收通常由 root-controller、release owner 或统一签收角色发起并编写。
@@ -196,23 +200,25 @@ evidence_count: 0
    - test records
    - experience records
    - acceptance-evidence
-4. 建立验收检查表：
+4. 如子模块刚完成交付，优先读取最新的 `foggy-implementation-quality-gate` 结果；如还没有，可先执行实现质量检查。
+5. 如测试覆盖复杂、跨层或刚完成子模块交付，优先读取最新的 `foggy-test-coverage-audit` 结果；如还没有，可先执行覆盖审计。
+6. 建立验收检查表：
    - 功能完成度
    - 测试通过情况
    - 体验验证情况
    - 文档完整度
    - 依赖项闭环情况
-5. 核对证据：
+7. 核对证据：
    - 明确哪些项有证据
    - 哪些项只有口述没有证据
    - 哪些项明确缺失
-6. 形成结论：
+8. 形成结论：
    - `accepted`
    - `accepted-with-risks`
    - `rejected`
    - `blocked`
-7. 写入验收记录。
-8. 如用户要求，回写签收标记到上游 root 文档和相关子模块文档。
+9. 写入验收记录。
+10. 如用户要求，回写签收标记到上游 root 文档和相关子模块文档。
 
 ## 验收发现 BUG 的处理规则
 

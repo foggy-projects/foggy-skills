@@ -1,0 +1,3 @@
+interface:
+  display_name: "Foggy Test Coverage Audit"
+  short_description: "对版本目录或单功能执行测试覆盖回归审计，检查 requirement、bug、acceptance item…"
