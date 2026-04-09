@@ -9,6 +9,49 @@ Use this skill when the task is not "just write a note", but "put the note in th
 
 When a root-level execution doc already exists, treat it as the upstream source of truth for submodule doc fan-out.
 
+默认不替执行 agent 设计具体代码结构。这个 skill 负责把任务放到正确的版本目录，并把执行流程、完成标准、测试与进度跟踪要求落盘。
+
+## Delivery Modes
+
+Choose the lightest mode that still preserves traceability.
+
+### 1. `single-root-delivery`
+
+Use this for projects that are not tiny, but also do not have clear microservice-style repo or capability boundaries.
+
+This is the default when:
+
+- work mainly happens in one repo or one main workspace
+- requirement and bug records still need versioned tracking
+- bug fixes may require reproduction and test decisions
+- execution needs a development checklist, code links, and compact acceptance
+- there is no real need to fan out docs into multiple owning repos
+
+Recommended doc shape:
+
+- `docs/<version>/workitems/<ticket-or-topic>.md`
+- `docs/<version>/acceptance/<ticket-or-topic>-acceptance.md`
+- optional version summary or release signoff in the same version root
+
+In this mode:
+
+- keep one main work item doc as the source of truth
+- keep one progress section or progress companion doc for execution tracking
+- link to code paths directly instead of splitting by repo ownership
+- use `foggy-bug-regression-workflow` when a bug needs reproduction or test-decision support
+- use `foggy-acceptance-signoff` in `feature-acceptance` mode for compact signoff
+
+### 2. `multi-owner-delivery`
+
+Use this when work must be split across multiple owning repos or modules.
+
+This mode aligns with root execution docs produced by `foggy-plan-execution-docs` and fan-out into submodule docs.
+
+Default rule:
+
+- if ownership is clear and isolated by repo or module, use `multi-owner-delivery`
+- otherwise start with `single-root-delivery` and only escalate when the work genuinely needs fan-out
+
 ## Operation Modes
 
 Choose one of these modes before writing docs:
@@ -48,6 +91,8 @@ Default rule:
 
 If the user has already generated a root execution doc via `foggy-plan-execution-docs`, use that root doc as the baseline.
 
+If the current project is marked in `CLAUDE.md` as `single-root delivery` or an equivalent baseline mode, do not introduce root-controller or child-repo fan-out structure unless the user explicitly asks to escalate.
+
 Default workflow in that case:
 
 1. Read the root doc under workspace `docs/<version>/`
@@ -60,6 +105,8 @@ Do not rewrite the root plan unless the user explicitly asks.
 ## Repo Convention Discovery
 
 Do not hardcode repo names, folder names, or ticket prefixes from a previous project. First inspect the current workspace and determine which of these patterns applies.
+
+Before choosing a repo convention, also inspect `CLAUDE.md` if present. If it declares a project delivery mode, treat that as the default operating context for doc placement and tracking depth.
 
 ### 1. Prompt-driven repo
 
@@ -109,19 +156,35 @@ If the repo has no strong established pattern yet:
 
 1. Identify the owning repo or repos.
 2. Identify the target version. Do not invent a version if the user has not given one.
-3. Select the operation mode:
+3. Determine the delivery mode:
+   - `single-root-delivery`
+   - `multi-owner-delivery`
+4. Select the operation mode:
    - `record`
    - `progress-update`
    - `execution-checkin`
-4. Classify the item:
+5. Classify the item:
    - bug
    - requirement
    - optimization
    - cross-project coordination
-5. Create or update the versioned doc in the owning repo.
-6. Create or update progress tracking so development, testing, and experience are traceable.
-7. For cross-project issues, create one owning doc per repo and cross-link them.
-8. If a doc was created in the wrong version or wrong folder, move it and remove the stale copy.
+6. Create or update the versioned doc in the owning repo.
+7. Create or update progress tracking so development, testing, and experience are traceable.
+8. For cross-project issues, create one owning doc per repo and cross-link them.
+9. If a doc was created in the wrong version or wrong folder, move it and remove the stale copy.
+
+When the delivery mode is `single-root-delivery`:
+
+- prefer one work item doc in the version root or `workitems/`
+- keep code links, checklist, test decision, and acceptance readiness in the same doc or a compact companion progress doc
+- do not split by repo ownership unless the work has actually crossed a meaningful boundary
+- if the item is a bug, decide whether to invoke `foggy-bug-regression-workflow` for reproduction and regression-test planning
+
+When the delivery mode is `multi-owner-delivery`:
+
+- split by actual ownership
+- cross-link the root execution doc and submodule docs
+- keep submodule progress and acceptance readiness aligned with the root plan
 
 When a root execution doc exists, insert these checks between steps 4 and 5:
 
@@ -145,6 +208,7 @@ When mode is `execution-checkin`:
 
 Always include:
 
+- document purpose header at the top
 - version
 - priority / severity
 - status
@@ -154,6 +218,28 @@ Always include:
 - task split / ownership
 - acceptance criteria
 - constraints / non-goals
+- required review / audit / acceptance workflow when applicable
+
+Recommended header:
+
+```markdown
+# 标题
+
+## 文档作用
+
+- doc_type: workitem | progress | acceptance | bug | optimization
+- intended_for: execution-agent | reviewer | signoff-owner
+- purpose: 一句话说明用途
+```
+
+For `single-root-delivery`, also prefer these fields when applicable:
+
+- source type: feature / bug / optimization / acceptance-found issue
+- touched code areas
+- bug reproduction status
+- automation decision: required / optional / waived
+- execution checklist
+- acceptance readiness
 
 ### Progress Tracking
 
@@ -171,6 +257,7 @@ When the doc is derived from a root execution plan (via `foggy-plan-execution-do
 - 需求验收标准对照（对照需求文档逐条列出）
 - 阻塞项（如有阻塞，记录原因和依赖）
 - 后续衔接（下一个 Stage 的前置条件是否满足）
+- 后置评审要求（例如 `foggy-implementation-quality-gate`、`foggy-test-coverage-audit`、`foggy-acceptance-signoff`）
 
 Allowed shapes:
 
@@ -178,6 +265,13 @@ Allowed shapes:
 - In Java/Python staged work: use `dev-logs/`, `test-records/`, and optional `experience/`
 - For execution-plan derived work: use `<doc-prefix>-progress.md` with full template
 - For smaller items: one compact progress doc is acceptable if it still covers all three dimensions
+
+For `single-root-delivery`, a compact shape is preferred by default:
+
+- work item main doc with embedded `## Progress Tracking`
+- or `workitems/<ticket>.md` plus `workitems/<ticket>-progress.md`
+
+Do not force separate `dev-logs/`, `test-records/`, or `experience/` folders unless the work becomes multi-stage or the repo already uses them.
 
 ### Execution Check-in Block
 
@@ -198,6 +292,7 @@ Recommended checklist items:
 - basic self-review was completed
 - test status is recorded as pass / fail / not-run / N/A
 - docs or follow-up items are recorded if still needed
+- progress and final report writeback are completed
 
 `execution-checkin` can be appended to an existing progress doc; it does not require a separate file if the current progress doc is already structured enough.
 
@@ -215,6 +310,9 @@ Recommended checklist items:
 - If this skill is used at coding start, create the progress skeleton up front.
 - If code was implemented, update progress before finishing the task; do not wait for the user to remind you.
 - Treat missing self-check or test status as an incomplete progress update.
+- Treat missing document-purpose header as a doc-quality issue that should be corrected.
+- In `single-root-delivery`, prefer one compact work item record over a multi-file doc tree unless the task complexity justifies expansion.
+- If `CLAUDE.md` declares the current project mode, follow that mode by default and record only the level of structure that mode requires.
 
 ## Output Checklist
 
@@ -229,4 +327,5 @@ Before finishing, verify:
 - if an execution-prompt exists for the submodule, a matching progress-template also exists
 - the progress-template includes Step-by-step completion tracking, acceptance criteria checklist, and downstream readiness check
 - if coding was executed, the progress doc now includes completed work, self-check, and test status
-
+- if the project is in `single-root-delivery`, the doc structure stayed compact and did not introduce unnecessary fan-out
+- the doc header clearly states the document purpose and intended audience

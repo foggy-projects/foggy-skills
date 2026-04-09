@@ -9,6 +9,8 @@ description: 对版本目录或单功能执行验收，汇总 requirement、impl
 
 这个 skill 不负责制定方案，也不负责推进执行。它负责回答：这次交付是否满足验收条件，证据是否完整，最终能否签收。
 
+验收时应优先确认执行文档是否已经清楚表达“文档作用 / intended_for / purpose”，并核对执行标准是否真的被遵守，而不是只看代码是否存在。
+
 ## 使用边界
 
 适用：
@@ -96,6 +98,8 @@ description: 对版本目录或单功能执行验收，汇总 requirement、impl
 - 未通过项 / 风险项
 - 最终结论
 
+验收记录开头也应明确其文档作用，便于后续 skill 和 LLM 识别。
+
 推荐同时回写签收标记到 root 文档或子模块文档。
 
 ## 固定输出契约
@@ -134,6 +138,7 @@ evidence_count: 0
 - `blocking_items` 填阻断项标题数组；无阻断时填 `[]`。
 - `follow_up_required` 只接受 `yes` 或 `no`。
 - `evidence_count` 填本次引用的有效证据条数。
+- 建议同时增加 `doc_role` 与 `doc_purpose`，增强文档可识别性。
 
 ### 2. 正文固定段落
 
@@ -208,6 +213,8 @@ evidence_count: 0
    - 体验验证情况
    - 文档完整度
    - 依赖项闭环情况
+   - 是否按执行要求完成 progress 回写与最终报告
+   - 是否已完成规定的 review / audit 流程
 7. 核对证据：
    - 明确哪些项有证据
    - 哪些项只有口述没有证据
@@ -273,6 +280,18 @@ evidence_count: 0
 - 无法判断是否满足验收标准
 
 不要因为时间紧就把 `blocked` 写成 `accepted-with-risks`。
+
+## 对执行标准的验收要求
+
+如上游 execution doc、module `CLAUDE.md` 或 progress 文档明确要求了以下事项，正式验收时必须逐项核对：
+
+- 新增测试必须执行并通过
+- progress 文档必须已更新
+- final report 必须已输出
+- `foggy-implementation-quality-gate` 必须已执行
+- `foggy-test-coverage-audit` 必须已执行
+
+缺其中任一项时，至少应在验收结论中明确列为 blocker 或 open item，不能静默忽略。
 
 ## 验收记录模板
 

@@ -2,6 +2,8 @@
 acceptance_scope: feature
 version: v1.0
 target: feature-or-ticket-id
+doc_role: acceptance-record
+doc_purpose: 说明本文件用于功能级正式验收与签收结论记录
 status: signed-off
 decision: accepted
 signed_off_by: module-owner
@@ -13,6 +15,12 @@ evidence_count: 0
 ---
 
 # Feature Acceptance
+
+## Document Purpose
+
+- doc_type: acceptance
+- intended_for: signoff-owner / reviewer / owning-module
+- purpose: 记录功能级正式验收结论与证据摘要
 
 ## Background
 
