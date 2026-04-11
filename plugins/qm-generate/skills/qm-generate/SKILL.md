@@ -47,6 +47,7 @@ QM (查询模型) → 定义用户可查询的视图，是唯一的查询入口
    - 多模型场景下显式声明 `loader: 'v2'` 和 `joins`
    - 创建 `columnGroups`，按逻辑分组字段
    - 添加默认排序（通常按时间字段降序）
+   - **检测 TM 中是否有 `tenant` 维度**：有则生成 `accesses` 块（见"权限控制"章节）
 4. 将 QM 文件写入 `{TM模型名}QueryModel.qm`
 5. **注册 QM 到 `application.yml`**（见下方"模型注册"章节）
 6. 输出文件路径和生成的字段列表
@@ -132,6 +133,52 @@ QM 文件已生成：{文件路径}
 - 度量：{字段列表}
 ```
 
+## 权限控制（accesses）
+
+QM 通过 `accesses` 块在 **SQL 生成阶段** 注入 WHERE 条件，实现行级数据隔离。
+
+### 生成规则
+
+1. **检测 TM 中是否存在 `tenant` 维度**（`foreignKey: 'tenant_id'`）
+   - 有 → 自动生成 `accesses` 块，注入 `tenantId` 过滤
+   - 无 → 不生成 `accesses`，输出提示
+2. **`@tokenUtils` 依赖**：需宿主服务注册名为 `tokenUtils` 的 Spring Bean，提供 `getToken()` 方法返回 `{ tenantId, ownerOrgId }`
+3. **无 token 时必须优雅降级**：用 guard clause 跳过过滤，不能抛异常
+
+### 语法硬约束
+
+| 正确写法 | 错误写法 | 说明 |
+|---------|---------|------|
+| `queryBuilder: (context) => { const query = context.query; ... }` | `queryBuilder: () => { query.and(...); }` | **必须**从 `context` 参数获取 `query` |
+| `query.and(fo.tenantId, token.tenantId)` | `query.and('tenant_id', token.tenantId)` | 推荐使用 `ref` 引用字段 |
+
+### 标准租户隔离模板
+
+```javascript
+import { getToken } from '@tokenUtils';
+const fo = loadTableModel('XxxModel');
+
+export const queryModel = {
+    // ... name, caption, model, columnGroups, orders ...
+
+    accesses: [{
+        property: 'tenantId',
+        queryBuilder: (context) => {
+            const query = context.query;
+            const token = getToken();
+            if (token && token.tenantId) {
+                query.and(fo.tenantId, token.tenantId);
+            }
+        }
+    }]
+};
+```
+
+### 特殊场景
+
+- **平台端管理页面**（如租户管理列表）：平台管理员可见所有租户，不注入 `tenantId` 过滤，但可注入业务过滤（如 `tenant_flag=1`）
+- **多条件过滤**：可在同一个 `queryBuilder` 中追加多个 `query.and()`
+
 ## 约束条件（必须严格遵守）
 
 ### 硬性语法要求
@@ -145,6 +192,7 @@ QM 文件已生成：{文件路径}
 | `columnGroups: [{ caption, items }]` | `columns: [{ ref, caption }]` | 列定义必须用 `columnGroups` + `items` 结构 |
 | `{ ref: fo.fieldName }` | `{ name: 'fieldName' }` | 列引用必须用 `ref` 语法 |
 | `loader: 'v2'` + `joins: [...]` | `models: [...]`, `joinGraph: ...` | 多模型 QM 必须通过 `model` + `joins` 描述 |
+| `queryBuilder: (context) => { const query = context.query; }` | `queryBuilder: () => { query.and(...); }` | accesses 必须从 context 获取 query |
 
 ### 多 TM / JOIN 场景规则
 
@@ -198,6 +246,8 @@ QM 文件已生成：{文件路径}
 ## 单 TM 示例输出
 
 ```javascript
+import { getToken } from '@tokenUtils';
+
 const fo = loadTableModel('FactOrderModel');
 
 export const queryModel = {
@@ -233,7 +283,18 @@ export const queryModel = {
 
     orders: [
         { name: 'orderTime', order: 'desc' }
-    ]
+    ],
+
+    accesses: [{
+        property: 'tenantId',
+        queryBuilder: (context) => {
+            const query = context.query;
+            const token = getToken();
+            if (token && token.tenantId) {
+                query.and(fo.tenantId, token.tenantId);
+            }
+        }
+    }]
 };
 ```
 
