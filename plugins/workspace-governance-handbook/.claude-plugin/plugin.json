@@ -1,7 +1,7 @@
 {
   "name": "workspace-governance-handbook",
   "version": "1.0.0",
-  "description": "为"根目录总控 + 子目录落实"的多工作目录项目生成或更新 CLAUDE.md 工作手册。适用于单仓多模块、多个相关 Git 项目共处一个工作区、前后端分层、测试目录分离、或已有 CLAUDE.md 需要安全合并的场景。",
+  "description": "为“根目录总控 + 子目录落实”的多工作目录项目生成或更新 CLAUDE.md 工作手册。适用于单仓多模块、多个相关 Git 项目共处一个工作区、前后端分层、测试目录分离、或已有 CLAUDE.md 需要安全合并的场景。触发词：提及“多工作目录”“子目录 agent”“根目录总控”“生成 CLAUDE.md”“合并已有 CLAUDE.md”“项目工作手册”“多 Git 项目协作”。",
   "author": {
     "name": "oldseasoul",
     "email": "oldseasoul@163.com"
