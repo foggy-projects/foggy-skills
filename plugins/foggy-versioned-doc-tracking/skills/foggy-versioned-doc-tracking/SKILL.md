@@ -108,6 +108,8 @@ Do not hardcode repo names, folder names, or ticket prefixes from a previous pro
 
 Before choosing a repo convention, also inspect `CLAUDE.md` if present. If it declares a project delivery mode, treat that as the default operating context for doc placement and tracking depth.
 
+If `CLAUDE.md` also declares the current stage security boundary, preserve that boundary in the tracked docs: inherit mandatory constraints, and keep explicitly out-of-scope security items out of the acceptance baseline unless the user asks to expand scope.
+
 ### 1. Prompt-driven repo
 
 If a repo already uses a prompt/task-doc convention, follow that local convention.
@@ -249,6 +251,17 @@ Always make sure these three dimensions are visible somewhere:
 - testing progress
 - experience progress
 
+**Experience Progress 判断规则**：
+
+功能涉及 UI 交互时（新增/修改页面、表单、列表、弹窗、按钮交互、数据展示、权限可见性变化），experience progress 不能标 `N/A`，必须包含：
+
+- 体验检查清单（覆盖维度：页面可达性、核心交互流程、表单验证、异常状态、权限可见性、数据一致性）
+- playwright 测试状态表（用例名 / 覆盖维度 / pass|fail|not-run）
+- playwright 测试必须运行通过，作为验收 evidence
+- 如 playwright 环境不可用，须标注原因，不得标记体验验证完成
+
+功能纯后端 / 纯 API / 无 UI 时，标记 `experience: N/A` 并写明原因即可。
+
 When the doc is derived from a root execution plan (via `foggy-plan-execution-docs`), the progress doc should also include:
 
 - 前置条件检查表（上一个 Stage 的输出是否到位）
@@ -329,3 +342,4 @@ Before finishing, verify:
 - if coding was executed, the progress doc now includes completed work, self-check, and test status
 - if the project is in `single-root-delivery`, the doc structure stayed compact and did not introduce unnecessary fan-out
 - the doc header clearly states the document purpose and intended audience
+- if the owning repo or module `CLAUDE.md` declares a security boundary, the tracked doc reflects the same in-scope and out-of-scope security assumptions
