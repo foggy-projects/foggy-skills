@@ -46,6 +46,7 @@ QM (查询模型) → 定义用户可查询的视图，是唯一的查询入口
    - 定义 `queryModel` 对象
    - 多模型场景下显式声明 `loader: 'v2'` 和 `joins`
    - 创建 `columnGroups`，按逻辑分组字段
+   - **必须包含 TM 的 `idColumn` 对应字段**：如 `fo.orderId`、`fo.staffId`，缺少主键会导致前端 CRUD 操作（编辑/删除/启停）无法调用后端 API
    - 添加默认排序（通常按时间字段降序）
    - **检测 TM 中是否有 `tenant` 维度**：有则生成 `accesses` 块（见"权限控制"章节）
 4. 将 QM 文件写入 `{TM模型名}QueryModel.qm`
