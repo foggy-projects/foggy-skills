@@ -46,6 +46,7 @@ QM (查询模型) → 定义用户可查询的视图，是唯一的查询入口
    - 定义 `queryModel` 对象
    - 多模型场景下显式声明 `loader: 'v2'` 和 `joins`
    - 创建 `columnGroups`，按逻辑分组字段
+   - **必须包含 TM 的 `idColumn` 对应字段**：如 `fo.orderId`、`fo.staffId`，缺少主键会导致前端 CRUD 操作（编辑/删除/启停）无法调用后端 API
    - 添加默认排序（通常按时间字段降序）
    - **检测 TM 中是否有 `tenant` 维度**：有则生成 `accesses` 块（见"权限控制"章节）
 4. 将 QM 文件写入 `{TM模型名}QueryModel.qm`
@@ -139,11 +140,12 @@ QM 通过 `accesses` 块在 **SQL 生成阶段** 注入 WHERE 条件，实现行
 
 ### 生成规则
 
-1. **检测 TM 中是否存在 `tenant` 维度**（`foreignKey: 'tenant_id'`）
-   - 有 → 自动生成 `accesses` 块，注入 `tenantId` 过滤
-   - 无 → 不生成 `accesses`，输出提示
-2. **`@tokenUtils` 依赖**：需宿主服务注册名为 `tokenUtils` 的 Spring Bean，提供 `getToken()` 方法返回 `{ tenantId, ownerOrgId }`
-3. **无 token 时必须优雅降级**：用 guard clause 跳过过滤，不能抛异常
+1. **先确认模型归属**：生成 QM 前必须明确该模型供 **平台端** 还是 **租户端** 使用
+2. **检测 TM 中是否存在 `tenant` 维度**（`foreignKey: 'tenant_id'`）
+   - **租户端模型** → 生成 `accesses` 块，注入 `tenantId` 过滤，**无 token 时必须 throw Error 拒绝查询**
+   - **平台端模型** → 不注入 `tenantId` 过滤，按业务条件筛选（如 `tenantFlag=1`）
+   - 无 tenant 维度 → 不生成 `accesses`，输出提示
+3. **`@tokenUtils` 依赖**：需宿主服务注册名为 `tokenUtils` 的 Spring Bean，提供 `getToken()` 方法返回 `{ tenantId, ownerOrgId }`
 
 ### 语法硬约束
 
@@ -152,7 +154,7 @@ QM 通过 `accesses` 块在 **SQL 生成阶段** 注入 WHERE 条件，实现行
 | `queryBuilder: (context) => { const query = context.query; ... }` | `queryBuilder: () => { query.and(...); }` | **必须**从 `context` 参数获取 `query` |
 | `query.and(fo.tenantId, token.tenantId)` | `query.and('tenant_id', token.tenantId)` | 推荐使用 `ref` 引用字段 |
 
-### 标准租户隔离模板
+### 租户端模板（无 token 必须拒绝）
 
 ```javascript
 import { getToken } from '@tokenUtils';
@@ -166,18 +168,39 @@ export const queryModel = {
         queryBuilder: (context) => {
             const query = context.query;
             const token = getToken();
-            if (token && token.tenantId) {
-                query.and(fo.tenantId, token.tenantId);
+            if (!token || !token.tenantId) {
+                throw new Error('租户端查询必须携带 tenantId，请先登录');
             }
+            query.and(fo.tenantId, token.tenantId);
         }
     }]
 };
 ```
 
-### 特殊场景
+### 平台端模板（按业务条件过滤）
 
-- **平台端管理页面**（如租户管理列表）：平台管理员可见所有租户，不注入 `tenantId` 过滤，但可注入业务过滤（如 `tenant_flag=1`）
-- **多条件过滤**：可在同一个 `queryBuilder` 中追加多个 `query.and()`
+```javascript
+const fo = loadTableModel('TenantModel');
+
+export const queryModel = {
+    // ... name, caption, model, columnGroups, orders ...
+
+    accesses: [{
+        property: 'tenantFlag',
+        queryBuilder: (context) => {
+            const query = context.query;
+            query.and(fo.tenantFlag, 1);
+        }
+    }]
+};
+```
+
+### 策略对照
+
+| 模型归属 | 无 token 行为 | 原因 |
+|---------|-------------|------|
+| 租户端 | **throw Error** | 降级 = 裸奔查全表，严重安全漏洞 |
+| 平台端 | 正常执行 | 平台管理员无需租户隔离 |
 
 ## 约束条件（必须严格遵守）
 
@@ -290,9 +313,10 @@ export const queryModel = {
         queryBuilder: (context) => {
             const query = context.query;
             const token = getToken();
-            if (token && token.tenantId) {
-                query.and(fo.tenantId, token.tenantId);
+            if (!token || !token.tenantId) {
+                throw new Error('租户端查询必须携带 tenantId，请先登录');
             }
+            query.and(fo.tenantId, token.tenantId);
         }
     }]
 };
