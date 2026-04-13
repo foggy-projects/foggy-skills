@@ -188,6 +188,41 @@ properties: [
 ]
 ```
 
+## 4.1 维度成员权限（memberPermission）
+
+维度可声明 `memberPermission`，控制 synthetic member-QM 成员查询的权限。QM 可通过 `memberPermissions[]` 覆盖。
+
+```javascript
+{
+    name: 'product',
+    tableName: 'dim_product',
+    foreignKey: 'product_key',
+    primaryKey: 'product_key',
+    captionColumn: 'product_name',
+    properties: [ /* ... */ ],
+
+    memberPermission: {
+        patch: {
+            visibleColumns: ['id', 'caption', 'brand'],       // 列白名单
+            forcedSlice: [                                      // 强制过滤
+                { field: 'brand', op: '=', value: 'Apple' },
+                { field: 'tenantId', op: '=', valueBuilder: (ctx) => ctx.security.tenantId }
+            ],
+            forcedOrderBy: [{ field: 'caption', dir: 'ASC' }], // 强制排序
+            hierarchyEnabled: true,                             // 层级开关
+            allowedHierarchyOps: ['childrenOf', 'descendantsOf'] // 层级操作白名单
+        },
+        queryBuilder: (context) => {                            // SQL 级增强
+            context.query.and(context.member.enabled, true);
+        }
+    }
+}
+```
+
+- `patch`：request 级改写，QM 同名配置覆盖 TM
+- `queryBuilder`：SQL 级条件注入，TM 和 QM 的 queryBuilder 按顺序执行
+- `forcedSlice` 支持静态 `value` 或动态 `valueBuilder(context)`
+
 ## 5. 维度复用（推荐）
 
 绝大部分维度需要复用，使用维度构建器：
