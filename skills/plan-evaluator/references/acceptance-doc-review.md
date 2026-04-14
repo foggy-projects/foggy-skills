@@ -4,6 +4,7 @@
 
 ## 重点检查
 
+- 如验收对象属于某个版本或迭代，结论是否与版本目标 / 成功标准一致
 - 验收依据是否覆盖 requirement / implementation plan / acceptance criteria
 - evidence 是否足以支撑最终结论
 - blocker 是否被错误降级
@@ -20,6 +21,7 @@
 ## 常见否决点
 
 - 证据不足却直接签收
+- 已知版本目标未达成，却仍直接给出 accepted
 - 阻断项被包装成”风险可接受”
 - 验收结论与测试/体验/进度材料不一致
 - 应走的执行标准（quality-gate / test-coverage-audit）被跳过，且验收文档未说明原因
