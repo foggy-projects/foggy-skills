@@ -1,3 +1,3 @@
 interface:
   display_name: "Foggy Implementation Quality Gate"
-  short_description: "对子模块或单功能的实现结果执行开发质量检查，确认代码实现、范围收口、自检、风险、文档回写与测试匹配情况是否达到…"
+  short_description: "在 execution-checkin 之后执行实现质量检查，支持轻量自检与正式质量闸门两种模式：自检用于编码…"

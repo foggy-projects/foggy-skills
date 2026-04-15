@@ -81,6 +81,7 @@ Use when a coding task has just been executed or is about to be handed off:
 - fill the self-check checklist
 - record test status
 - mark whether the item is ready for acceptance, still blocked, or needs follow-up
+- decide whether the item only needs lightweight self-check closure or must escalate to formal `foggy-implementation-quality-gate`
 
 Default rule:
 
@@ -203,6 +204,7 @@ When mode is `execution-checkin`:
 
 - treat missing progress writeback as incomplete delivery
 - if code changed, progress docs should also reflect what changed, what was checked, and what remains
+- require a lightweight implementation self-check before the task can be marked as coding-complete
 
 ## Minimum Content
 
@@ -271,6 +273,7 @@ When the doc is derived from a root execution plan (via `foggy-plan-execution-do
 - 阻塞项（如有阻塞，记录原因和依赖）
 - 后续衔接（下一个 Stage 的前置条件是否满足）
 - 后置评审要求（例如 `foggy-implementation-quality-gate`、`foggy-test-coverage-audit`、`foggy-acceptance-signoff`）
+- 自检结论（本次仅轻量收口，还是必须升级为正式质量检查）
 
 Allowed shapes:
 
@@ -303,6 +306,7 @@ Recommended checklist items:
 - non-goals were not accidentally expanded
 - code paths updated are listed
 - basic self-review was completed
+- self-check conclusion is recorded as `self-check-only` or `needs-formal-quality-gate`
 - test status is recorded as pass / fail / not-run / N/A
 - docs or follow-up items are recorded if still needed
 - progress and final report writeback are completed
@@ -340,6 +344,7 @@ Before finishing, verify:
 - if an execution-prompt exists for the submodule, a matching progress-template also exists
 - the progress-template includes Step-by-step completion tracking, acceptance criteria checklist, and downstream readiness check
 - if coding was executed, the progress doc now includes completed work, self-check, and test status
+- if coding was executed, the progress doc records whether formal `foggy-implementation-quality-gate` is required before coverage audit
 - if the project is in `single-root-delivery`, the doc structure stayed compact and did not introduce unnecessary fan-out
 - the doc header clearly states the document purpose and intended audience
 - if the owning repo or module `CLAUDE.md` declares a security boundary, the tracked doc reflects the same in-scope and out-of-scope security assumptions

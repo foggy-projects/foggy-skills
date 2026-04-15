@@ -69,3 +69,9 @@ follow_up_required: yes
 - decision:
 - can_enter_coverage_audit:
 - follow_up_required:
+
+## Lightweight Self-Check Note
+
+- self_check_summary:
+- self_check_decision: self-check-only | needs-formal-quality-gate
+- self_check_follow_up:
